@@ -1,0 +1,25 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+**/out
+
+# Mac
+.DS_Store
+overlays/
+!overlays/com.hand.hap-3.0.4-RELEASE/WEB-INF/view/include/header.html
+*.bak
+rebel.xml
+
+# Maven
+**/log/
+**/target
+**/*.log
+**/tmp
+**/.tmp
+**/bin/**
