@@ -1,12 +1,10 @@
 package com.hand.weiapi.weChatServlet;
-
 /**
- * Created by xieshuai on 2018/1/15.
+ *Created by xieshuai on 2018/1/15.
  */
 import com.hand.weiapi.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,11 +23,11 @@ public class weChatAccounts extends HttpServlet {
     private final String TOKEN = "cherry";
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws
-    ServletException, IOException {
-// TODO 接收、处理、响应由微信服务器转发的用户发送给公众帐号的消息
-// 将请求、响应的编码均设置为UTF‐8（防止中文乱码）
+            ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
+// TODO 接收、处理、响应由微信服务器转发的用户发送给公众帐号的消息
+// 将请求、响应的编码均设置为UTF‐8（防止中文乱码）
         System.out.println("请求进入");
         String result = "";
         try {

@@ -1,11 +1,9 @@
 package com.hand.weiapi.weChatServlet;
-
 /**
  * Created by xieshuai on 2018/1/16.
  */
 import com.alibaba.fastjson.JSONObject;
 import com.hand.weiapi.util.UploadMediaApiUtil;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,17 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-
 /**
  * 上传素材servlet
  */
 @WebServlet(name = "UploadMediaServlet")
 public class UploadMediaServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws
-            ServletException, IOException {
-    } @
-            Override
+ protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    }
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
         UploadMediaApiUtil uploadMediaApiUtil = new UploadMediaApiUtil();
