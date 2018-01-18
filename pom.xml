@@ -4,7 +4,7 @@
 
   <groupId>com.hand</groupId>
   <artifactId>xy99520</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>${project.build.version}</version>
   <modules>
     <module>core</module>
     <module>core-db</module>
@@ -15,9 +15,34 @@
   <url>http://maven.apache.org</url>
 
   <properties>
+    <!--properties标签定义变量-->
+    <project.build.version>1.0-SNAPSHOT</project.build.version>
+    <!--config.properties-->
+    <project.buildDate>${maven.build.timestamp}</project.buildDate>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <maven.compiler.source>1.8</maven.compiler.source>
       <maven.compiler.target>1.8</maven.compiler.target>
+    <!--<spring.security.version>4.0.4.RELEASE</spring.security.version>-->
+    <!--<spring.version>4.3.11.RELEASE</spring.version>-->
+    <!--<freemarker.version>2.3.21</freemarker.version>-->
+    <!--<junit.version>4.12</junit.version>-->
+    <!--<mybatis.version>3.3.0</mybatis.version>-->
+    <!--<mybatis.spring.version>1.2.3</mybatis.spring.version>-->
+    <!--<jackson.version>2.8.8</jackson.version>-->
+    <!--<jolbox.version>0.8.0.RELEASE</jolbox.version>-->
+    <!--<quartz.version>2.2.3</quartz.version>-->
+    <!--<jedis.version>2.9.0</jedis.version>-->
+    <!--<spring.redis.version>1.7.0.RELEASE</spring.redis.version>-->
+    <!--<logback.version>1.1.7</logback.version>-->
+    <!--<activiti.version>6.0.0</activiti.version>-->
+    <!--<drools.version>5.6.0.Final</drools.version>-->
+    <!--<cxf.version>3.1.7</cxf.version>-->
+    <!--<metrics.version>3.1.2</metrics.version>-->
+    <!--<poi.version>3.16</poi.version>-->
+    <!--<spring.rabbit.version>1.7.1.RELEASE</spring.rabbit.version>-->
+    <!--<xalan.version>2.7.2</xalan.version>-->
+    <!--&lt;!&ndash; sonar-analysis &ndash;&gt;-->
+    <!--<sonar.exclusions>**.js</sonar.exclusions>-->
     <!--maven 的Setting文件中添加-->
     <!--<profile>-->
       <!--<id>jdk-1.8</id>-->

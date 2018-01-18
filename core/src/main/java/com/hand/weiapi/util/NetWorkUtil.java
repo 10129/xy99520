@@ -9,7 +9,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 /**
- * created by xiuhong.chen
+ * created by shuai.xie
  * 2017/12/28
  * 发起HTTPS请求的工具类
  * getHttpsResponse方法是请求一个https地址，参数requestMethod为字符串“GET”或者“POST”，传null或者“”默认为get方式。

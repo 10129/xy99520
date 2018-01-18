@@ -51,21 +51,41 @@ public class MessageUtil {
       */
     public static String buildXml(Map<String,String> map) {
         String result;
+        // CreateTime ToUserName FromUserName  MsgId MsgType 5个属性通用
+        String createTime = map.get("CreateTime").toString();
+        String toUserName = map.get("ToUserName").toString();// 开发者微信号
+        String fromUserName = map.get("FromUserName").toString();
+        String msgId = map.get("MsgId").toString();
         String msgType = map.get("MsgType").toString();
         System.out.println("MsgType:" + msgType);
         if(msgType.toUpperCase().equals("EVENT")){
             result = buildTextMessage(map, "关注！");
         }else if(msgType.toUpperCase().equals("TEXT")){
-            result = buildTextMessage(map, "文字！");
+            String content = map.get("Content").toString();
+            //Music
+            if("音乐".equals(content)){
+                result = buildMusicMessage(map);
+            }else if("图文".equals(content)){
+                result = buildNewsMessage(map);
+            }else {
+                result = buildTextMessage(map, "文字！");
+            }
         }else if(msgType.toUpperCase().equals("IMAGE")){
-            result = buildTextMessage(map, "图片！");
-            //result = buildTextMessage(map, "图片！");
+        //MediaId PicUrl  图片2个属性
+            String mediaId = map.get("MediaId").toString();
+            String picUrl = map.get("PicUrl").toString();
+            result = buildImageMessage(map, picUrl);
         }else if(msgType.toUpperCase().equals("VOICE")){
-            result = buildTextMessage(map, "语音！");
+            //MediaId Format Recognition 语音3个
+            String mediaId = map.get("MediaId").toString();
+            String format = map.get("Format").toString();
+            String recognition = map.get("Recognition").toString();
+            result = buildVoiceMessage(map);
         }else if(msgType.toUpperCase().equals("VIDEO")){
-            result = buildTextMessage(map, "视频！");
+            String mediaId = map.get("MediaId").toString();
+            result = buildVideoMessage(map);
         }else if(msgType.toUpperCase().equals("NEWS")){
-            result = buildTextMessage(map, "图文！");
+            result = buildNewsMessage(map);
         }else if(msgType.toUpperCase().equals("SUBSCRIBE")){
             result = buildTextMessage(map, "订阅！");
         }else if(msgType.toUpperCase().equals("UNSUBSCRIBE")){
@@ -75,9 +95,6 @@ public class MessageUtil {
         }else if(msgType.toUpperCase().equals("LINK")){
             result = buildTextMessage(map, "链接消息！");
         }else{
-            String fromUserName = map.get("FromUserName");
-// 开发者微信号
-            String toUserName = map.get("ToUserName");
             result = String
                     .format(
                             "<xml>"+
@@ -124,9 +141,9 @@ public class MessageUtil {
         String fromUserName = map.get("FromUserName");
         String toUserName = map.get("ToUserName");
 /*返回指定的图片(该图片是上传为素材的,获得其media_id)*/
-//String media_id = "UCWXNCogK5ub6YFFQf7QcEpvDIYLf3Zh0L5W9i4aEp2ehfnTrASeV59x3LMD88SS";
+String media_id = "cuy8FdvowpQyKE5Q3XJYj4pxeagBb1L8Qs1GEz12qyar0iNHulufdqZ0CALZVzYj";
 /*返回用户发过来的图片*/
-        String media_id = map.get("MediaId");
+//        String media_id = map.get("MediaId");
         return String.format(
                 "<xml>" +
                         "<ToUserName><![CDATA[%s]]></ToUserName>" +
@@ -172,10 +189,10 @@ public class MessageUtil {
         String fromUserName = map.get("FromUserName");
         String toUserName = map.get("ToUserName");
         String title = "客官发过来的视频哟~~";
-        String description = "客官您呐,现在肯定很开心,对不啦 嘻嘻!";
-/*返回用户发过来的视频*/
-//String media_id = map.get("MediaId");
-        String media_id = "hTl1of‐w78xO‐0cPnF_Wax1QrTwhnFpG1WBkAWEYRr9Hfwxw8DYKPYFX‐22hAwSs";
+        String description = "客官您呐,现在肯定很开心,对不啦 嘻嘻😄";
+        /*返回用户发过来的视频*/
+        String media_id = map.get("MediaId");
+//        String media_id = "hTl1of-w78xO-0cPnF_Wax1QrTwhnFpG1WBkAWEYRr9Hfwxw8DYKPYFX-22hAwSs";
         return String.format(
                 "<xml>" +
                         "<ToUserName><![CDATA[%s]]></ToUserName>" +
@@ -183,14 +200,15 @@ public class MessageUtil {
                         "<CreateTime>%s</CreateTime>" +
                         "<MsgType><![CDATA[video]]></MsgType>" +
                         "<Video>" +
-                        " <MediaId><![CDATA[%s]]></MediaId>" +
-                        " <Title><![CDATA[%s]]></Title>" +
-                        " <Description><![CDATA[%s]]></Description>" +
+                        "   <MediaId><![CDATA[%s]]></MediaId>" +
+                        "   <Title><![CDATA[%s]]></Title>" +
+                        "   <Description><![CDATA[%s]]></Description>" +
                         "</Video>" +
                         "</xml>",
                 fromUserName,toUserName, getUtcTime(),media_id,title,description
         );
     }
+
     /**
      * 回复音乐消息
      * @param map
@@ -200,7 +218,7 @@ public class MessageUtil {
         String fromUserName = map.get("FromUserName");
         String toUserName = map.get("ToUserName");
         String title = "亲爱的路人";
-        String description = "多听音乐 心情棒棒 嘻嘻�";
+        String description = "\uE03E多听音乐 心情棒棒";
         String hqMusicUrl ="http://www.kugou.com/song/20qzz4f.html?frombaidu#hash=20C16B9CCCCF851D1D23AF52DD963986&album_id=0";
         return String.format(
                 "<xml>" +
@@ -209,15 +227,16 @@ public class MessageUtil {
                         "<CreateTime>%s</CreateTime>" +
                         "<MsgType><![CDATA[music]]></MsgType>" +
                         "<Music>" +
-                        " <Title><![CDATA[%s]]></Title>" +
-                        " <Description><![CDATA[%s]]></Description>" +
-                        " <MusicUrl>< ![CDATA[%s] ]></MusicUrl>" + //非必须项 音乐链接
-                        " <HQMusicUrl><![CDATA[%s]]></HQMusicUrl>"+ //非必须项 高质量音乐链接，WIFI环境优先使用该链接播放音乐
-                "</Music>" +
+                        "<Title><![CDATA[%s]]></Title>" +
+                        "<Description><![CDATA[%s]]></Description>" +
+                        "<MusicUrl>< ![CDATA[%s] ]></MusicUrl>" +  //非必须项 音乐链接
+                        "<HQMusicUrl><![CDATA[%s]]></HQMusicUrl>"+ //非必须项 高质量音乐链接，WIFI环境优先使用该链接播放音乐
+                        "</Music>" +
                         "</xml>",
                 fromUserName,toUserName, getUtcTime(),title,description,hqMusicUrl,hqMusicUrl
         );
     }
+
     /**
      * 返回图文消息
      * @param map
@@ -227,13 +246,15 @@ public class MessageUtil {
         String fromUserName = map.get("FromUserName");
         String toUserName = map.get("ToUserName");
         String title1 = "HAP审计的实现和使用";
-        String description1 = "由于HAP框架用的是Spring+SpringMVC+Mybatis，其中Mybatis中的拦截器可以";
-        String picUrl1 ="http://upload‐images.jianshu.io/upload_images/7855203‐b9e9c9ded8a732a1.png?imageMogr2/auto‐orient/strip%7CimageView2/2/w/1240";
+        String description1 = "由于HAP框架用的是Spring+SpringMVC+Mybatis，其中Mybatis中的拦截器可以选择在被拦截的方法前后执行自己的逻辑。所以我们通过拦截器实现了审计功能，当用户对某个实体类进行增删改操作时，拦截器可以拦截，然后将操作的数据记录在审计表中，便于用户以后审计。";
+        String picUrl1 ="http://upload-images.jianshu.io/upload_images/7855203-b9e9c9ded8a732a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240";
         String textUrl1 = "http://blog.csdn.net/a1786223749/article/details/78330890";
+
         String title2 = "KendoUI之Grid的问题详解";
         String description2 = "kendoLov带出的值出现 null和undefined";
-        String picUrl2 ="https://demos.telerik.com/kendo‐ui/content/shared/images/theme‐网络不太好,所以图片没有加载出来, 在手机上测试是可以看到图片的. builder.png";
+        String picUrl2 ="https://demos.telerik.com/kendo-ui/content/shared/images/theme-builder.png";
         String textUrl2 = "http://blog.csdn.net/a1786223749/article/details/78330908";
+
         return String.format(
                 "<xml>" +
                         "<ToUserName><![CDATA[%s]]></ToUserName>" +
@@ -242,11 +263,11 @@ public class MessageUtil {
                         "<MsgType><![CDATA[news]]></MsgType>" +
                         "<ArticleCount>2</ArticleCount>" + //图文消息个数，限制为8条以内
                         "<Articles>" + //多条图文消息信息，默认第一个item为大图,注意，如果图文数超过8，则将会无响应
-                "<item>" +
+                        "<item>" +
                         "<Title><![CDATA[%s]]></Title> " +
                         "<Description><![CDATA[%s]]></Description>" +
                         "<PicUrl><![CDATA[%s]]></PicUrl>" + //图片链接，支持JPG、PNG格式，较好的效果为大图360*200，小图200*200
-                "<Url><![CDATA[%s]]></Url>" + //点击图文消息跳转链接
+                        "<Url><![CDATA[%s]]></Url>" + //点击图文消息跳转链接
                         "</item>" +
                         "<item>" +
                         "<Title><![CDATA[%s]]></Title>" +
@@ -262,6 +283,7 @@ public class MessageUtil {
                 title2,description2,picUrl2,textUrl2
         );
     }
+
     /**
      * 得到当前时间
      * @return String
