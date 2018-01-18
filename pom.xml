@@ -16,6 +16,21 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
+    <!--maven 的Setting文件中添加-->
+    <!--<profile>-->
+      <!--<id>jdk-1.8</id>-->
+      <!--<activation>-->
+        <!--<activeByDefault>true</activeByDefault>-->
+        <!--<jdk>1.8</jdk>-->
+      <!--</activation>-->
+      <!--<properties>-->
+        <!--<maven.compiler.source>1.8</maven.compiler.source>-->
+        <!--<maven.compiler.target>1.8</maven.compiler.target>-->
+        <!--<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>-->
+      <!--</properties>-->
+    <!--</profile>-->
   </properties>
 
   <dependencies>
