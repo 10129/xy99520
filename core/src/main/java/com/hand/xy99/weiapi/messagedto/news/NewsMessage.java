@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class NewsMessage extends BaseMessage{
     private int ArticleCount;
-    private List<Articles> Articles;
+    private List<item> Articles;
 
     public int getArticleCount() {
         return ArticleCount;
@@ -19,11 +19,11 @@ public class NewsMessage extends BaseMessage{
         ArticleCount = articleCount;
     }
 
-    public List<com.hand.xy99.weiapi.messagedto.news.Articles> getArticles() {
+    public List<item> getArticles() {
         return Articles;
     }
 
-    public void setArticles(List<com.hand.xy99.weiapi.messagedto.news.Articles> articles) {
+    public void setArticles(List<item> articles) {
         Articles = articles;
     }
 }

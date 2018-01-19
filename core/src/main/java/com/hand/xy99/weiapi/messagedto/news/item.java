@@ -3,7 +3,7 @@ package com.hand.xy99.weiapi.messagedto.news;
 /**
  * Created by xieshuai on 2018/1/19.
  */
-public class Articles {
+public class item {
     private String Title;
     private String Description;
     private String PicUrl;

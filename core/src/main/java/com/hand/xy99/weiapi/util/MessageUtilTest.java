@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MessageUtil {
+public class MessageUtilTest {
     /**
      * 解析微信发来的请求（XML）
      * @param request

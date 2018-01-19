@@ -8,18 +8,19 @@ import com.hand.xy99.weiapi.messagedto.image.ImageMessage;
 import com.hand.xy99.weiapi.messagedto.music.Music;
 import com.hand.xy99.weiapi.messagedto.music.MusicMessage;
 import com.hand.xy99.weiapi.messagedto.news.NewsMessage;
-import com.hand.xy99.weiapi.messagedto.news.Articles;
+import com.hand.xy99.weiapi.messagedto.news.item;
 import com.hand.xy99.weiapi.messagedto.text.TextMessage;
 import com.hand.xy99.weiapi.messagedto.video.Video;
 import com.hand.xy99.weiapi.messagedto.video.VideoMessage;
 import com.hand.xy99.weiapi.messagedto.voice.Voice;
 import com.hand.xy99.weiapi.messagedto.voice.VoiceMessage;
 import com.hand.xy99.weiapi.service.IWeixinService;
+import com.hand.xy99.weiapi.service.impl.WeixinServiceImpl;
 import com.hand.xy99.weiapi.weixinUtil.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-@Controller
+@Service
 public class weChatAccounts extends HttpServlet {
     static Logger logger = LoggerFactory.getLogger(weChatAccounts.class);
     @Autowired
@@ -72,7 +73,7 @@ public class weChatAccounts extends HttpServlet {
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
     response.setCharacterEncoding("UTF-8");
-    String aa=userService.selecttest();
+    IWeixinService weixinService=new WeixinServiceImpl();
     String xml=weixinService.processRequest(request);
     System.out.print(xml);
     PrintWriter out = response.getWriter();
@@ -134,7 +135,7 @@ protected void doPost1(HttpServletRequest request, HttpServletResponse response)
             im.setFromUserName(ToUserName);
             im.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
             im.setCreateTime(System.currentTimeMillis());
-            Articles item1 =new Articles();
+            item item1 =new item();
             String title1 = "HAP审计的实现和使用";
             String description1 = "由于HAP框架用的是Spring+SpringMVC+Mybatis，其中Mybatis中的拦截器可以选择在被拦截的方法前后执行自己的逻辑。所以我们通过拦截器实现了审计功能，当用户对某个实体类进行增删改操作时，拦截器可以拦截，然后将操作的数据记录在审计表中，便于用户以后审计。";
             String picUrl1 ="http://upload-images.jianshu.io/upload_images/7855203-b9e9c9ded8a732a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240";
@@ -148,12 +149,12 @@ protected void doPost1(HttpServletRequest request, HttpServletResponse response)
             item1.setDescription(description1);
             item1.setPicUrl(picUrl1);
             item1.setUrl(textUrl1);
-            Articles item2 =new Articles();
+            item item2 =new item();
             item2.setTitle(title2);
             item2.setDescription(description2);
             item2.setPicUrl(picUrl2);
             item2.setUrl(textUrl2);
-            List<Articles> itemList =new ArrayList<Articles>();
+            List<item> itemList =new ArrayList<item>();
             itemList.add(item1);
             itemList.add(item2);
             im.setArticles(itemList);

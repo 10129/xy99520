@@ -2,15 +2,18 @@ package com.hand.xy99.weiapi.service.impl;
 
 import com.hand.xy99.weiapi.messagedto.music.Music;
 import com.hand.xy99.weiapi.messagedto.music.MusicMessage;
-import com.hand.xy99.weiapi.messagedto.news.Articles;
+import com.hand.xy99.weiapi.messagedto.news.item;
 import com.hand.xy99.weiapi.messagedto.news.NewsMessage;
 import com.hand.xy99.weiapi.messagedto.text.TextMessage;
+import com.hand.xy99.weiapi.messagedto.video.Video;
+import com.hand.xy99.weiapi.messagedto.video.VideoMessage;
 import com.hand.xy99.weiapi.service.IWeixinService;
 import com.hand.xy99.weiapi.weixinUtil.MessageUtil;
 import com.hand.xy99.weiapi.weChatServlet.AccessTokenServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -20,7 +23,8 @@ import java.util.Map;
 /**
  * Created by xieshuai on 2018/1/18.
  */
-@Service
+@Scope("singleton")
+@Repository
 public class WeixinServiceImpl implements IWeixinService {
     public static Logger log = LoggerFactory.getLogger(AccessTokenServlet.class);
 @Override
@@ -49,6 +53,68 @@ public String processRequest(HttpServletRequest req) {
                     tm.setCreateTime(System.currentTimeMillis());
                     tm.setContent("我的CSDN博客：<a href=\"http://my.csdn.net/qincidong\">我的CSDN博客</a>\n");
                     return MessageUtil.textMessageToXml(tm);
+                }
+                else if (content.contains("1")) { // 点击了回复音乐
+                    MusicMessage mm =  new MusicMessage();
+                    mm.setFromUserName(ToUserName);
+                    mm.setToUserName(FromUserName);
+                    mm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_MUSIC);
+                    mm.setCreateTime(System.currentTimeMillis());
+                    Music music = new Music();
+                    music.setTitle("Maid with the Flaxen Hair");
+                    music.setDescription("测试音乐");
+                    music.setMusicUrl("http://yinyueshiting.baidu.com/data2/music/123297915/1201250291415073661128.mp3?xcode=e2edf18bbe9e452655284217cdb920a7a6a03c85c06f4409");
+                    music.setHQMusicUrl("http://yinyueshiting.baidu.com/data2/music/123297915/1201250291415073661128.mp3?xcode=e2edf18bbe9e452655284217cdb920a7a6a03c85c06f4409");
+                    mm.setMusic(music);
+
+                    String musicXml = MessageUtil.musicMessageToXml(mm);
+                    log.info("musicXml:\n" + musicXml);
+                    return musicXml;
+                }
+                else if (content.contains("2")) { // 点击了回复图文
+                    NewsMessage im = new NewsMessage();
+                    im.setToUserName(FromUserName);
+                    im.setFromUserName(ToUserName);
+                    im.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+                    im.setCreateTime(System.currentTimeMillis());
+                    item item1 =new item();
+                    String title1 = "HAP审计的实现和使用";
+                    String description1 = "由于HAP框架用的是Spring+SpringMVC+Mybatis，其中Mybatis中的拦截器可以选择在被拦截的方法前后执行自己的逻辑。所以我们通过拦截器实现了审计功能，当用户对某个实体类进行增删改操作时，拦截器可以拦截，然后将操作的数据记录在审计表中，便于用户以后审计。";
+                    String picUrl1 ="http://upload-images.jianshu.io/upload_images/7855203-b9e9c9ded8a732a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240";
+                    String textUrl1 = "http://blog.csdn.net/a1786223749/article/details/78330890";
+                    String title2 = "KendoUI之Grid的问题详解";
+                    String description2 = "kendoLov带出的值出现 null和undefined";
+                    String picUrl2 ="https://demos.telerik.com/kendo-ui/content/shared/images/theme-builder.png";
+                    String textUrl2 = "http://blog.csdn.net/a1786223749/article/details/78330908";
+                    item1.setTitle(title1);
+                    item1.setDescription(description1);
+                    item1.setPicUrl(picUrl1);
+                    item1.setUrl(textUrl1);
+                    item item2 =new item();
+                    item2.setTitle(title2);
+                    item2.setDescription(description2);
+                    item2.setPicUrl(picUrl2);
+                    item2.setUrl(textUrl2);
+                    List<item> itemList =new ArrayList<item>();
+                    itemList.add(item1);
+                    itemList.add(item2);
+                    im.setArticles(itemList);
+                    im.setArticleCount(2);
+                    return MessageUtil.newsMessageToXml(im);
+                }
+                else if (content.contains("3")) {
+                    VideoMessage im = new VideoMessage();
+                    im.setToUserName(FromUserName);
+                    im.setFromUserName(ToUserName);
+                    im.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_VIDEO);
+                    im.setCreateTime(System.currentTimeMillis());
+                    Video video = new Video();
+                    video.setMediaId(xmlMap.get("MediaId"));
+                    video.setTitle("hahah");
+                    video.setDescription("还给你一个视频");
+                    im.setVideo(video);
+                    String xml = MessageUtil.videoMessageToXml(im);
+                    return xml;
                 }
                 // 响应
                 TextMessage tm = new TextMessage();
@@ -86,65 +152,11 @@ public String processRequest(HttpServletRequest req) {
                         tm.setFromUserName(ToUserName);
                         tm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
                         tm.setCreateTime(System.currentTimeMillis());
-                        tm.setContent("你好，你点击了回复文本菜单：\n" );
+                        tm.setContent("你好，你点击了回复文本菜单：\n");
 
                         String xml = MessageUtil.textMessageToXml(tm);
                         log.info("xml:" + xml);
                         return xml;
-                    }
-                    else if (eventKey.equals("reply_music")) { // 点击了回复音乐
-                        MusicMessage mm =  new MusicMessage();
-                        mm.setFromUserName(ToUserName);
-                        mm.setToUserName(FromUserName);
-                        mm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_MUSIC);
-                        mm.setCreateTime(System.currentTimeMillis());
-                        Music music = new Music();
-                        music.setTitle("Maid with the Flaxen Hair");
-                        music.setDescription("测试音乐");
-                        music.setMusicUrl("http://yinyueshiting.baidu.com/data2/music/123297915/1201250291415073661128.mp3?xcode=e2edf18bbe9e452655284217cdb920a7a6a03c85c06f4409");
-                        music.setHQMusicUrl("http://yinyueshiting.baidu.com/data2/music/123297915/1201250291415073661128.mp3?xcode=e2edf18bbe9e452655284217cdb920a7a6a03c85c06f4409");
-                        mm.setMusic(music);
-
-                        String musicXml = MessageUtil.musicMessageToXml(mm);
-                        log.info("musicXml:\n" + musicXml);
-                        return musicXml;
-                    }
-                    else if (eventKey.equals("reply_news")) { // 点击了回复图文
-                        NewsMessage nm = new NewsMessage();
-                        nm.setFromUserName(ToUserName);
-                        nm.setToUserName(FromUserName);
-                        nm.setCreateTime(System.currentTimeMillis());
-                        nm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
-                        List<Articles> articles = new ArrayList<Articles>();
-                        Articles e1 = new Articles();
-                        e1.setTitle("马云接受外媒专访：中国的五大银行想杀了“我”");
-                        e1.setDescription("阿里巴巴集团上市大获成功，《华尔街日报》日前就阿里巴巴集团、支付宝等话题采访了马云，马云也谈到了与苹果Apple Pay建立电子支付联盟的可能性。本文摘编自《华尔街日报》，原文标题：马云谈阿里巴巴将如何帮助美国出口商，虎嗅略有删节。");
-                        e1.setPicUrl("http://img1.gtimg.com/finance/pics/hv1/29/53/1739/113092019.jpg");
-                        e1.setUrl("http://finance.qq.com/a/20141105/010616.htm?pgv_ref=aio2012&ptlang=2052");
-
-                        Articles e2 = new Articles();
-                        e2.setTitle("史上最牛登机牌：姓名竟是微博名 涉事航空公司公开致歉");
-                        e2.setDescription("世上最遥远的距离是飞机在等你登机，你却过不了安检。");
-                        e2.setPicUrl("http://p9.qhimg.com/dmfd/328_164_100/t011946ff676981792d.png");
-                        e2.setUrl("http://www.techweb.com.cn/column/2014-11-05/2093128.shtml");
-                        articles.add(e1);
-                        articles.add(e2);
-
-                        nm.setArticles(articles);
-                        nm.setArticleCount(articles.size());
-
-                        String newsXml = MessageUtil.newsMessageToXml(nm);
-                        log.info("\n"+newsXml);
-                        return newsXml;
-                    }
-                    else if (eventKey.equals("reply_link")) {
-                        TextMessage tm = new TextMessage();
-                        tm.setToUserName(FromUserName);
-                        tm.setFromUserName(ToUserName);
-                        tm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
-                        tm.setCreateTime(System.currentTimeMillis());
-                        tm.setContent("我的CSDN博客：<a href=\"http://my.csdn.net/qincidong\">我的CSDN博客</a>\n");
-                        return MessageUtil.textMessageToXml(tm);
                     }
                 }
             }

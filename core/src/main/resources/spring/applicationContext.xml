@@ -12,9 +12,10 @@
     <!--引入配置属性文件 -->
     <context:property-placeholder location="classpath*:/config.properties" />
     <!--扫描注入service-->
-    <context:component-scan base-package="**.*.service"/>
-    <context:component-scan base-package="com.hand.xy99.weiapi.service.impl"/>
-    <context:component-scan base-package="com.hand.xy99.weiapi.service"/>
+    <!--<context:component-scan base-package="**.*.service"/>-->
+    <context:component-scan base-package="**.*.service" use-default-filters="false">
+        <context:include-filter type="regex" expression="cn\.outofmemory\.spring\.[^.]+(Dao|Service)"/>
+    </context:component-scan>
     <!--<context:component-scan base-package="**.*.components"/>-->
     <!-- jndi dataSource-->
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
