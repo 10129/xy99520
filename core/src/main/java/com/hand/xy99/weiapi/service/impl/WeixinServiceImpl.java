@@ -9,7 +9,6 @@ import com.hand.xy99.weiapi.messagedto.video.Video;
 import com.hand.xy99.weiapi.messagedto.video.VideoMessage;
 import com.hand.xy99.weiapi.service.IWeixinService;
 import com.hand.xy99.weiapi.weixinUtil.MessageUtil;
-import com.hand.xy99.weiapi.weChatServlet.AccessTokenServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
@@ -26,7 +25,7 @@ import java.util.Map;
 @Scope("singleton")
 @Repository
 public class WeixinServiceImpl implements IWeixinService {
-    public static Logger log = LoggerFactory.getLogger(AccessTokenServlet.class);
+    public static Logger log = LoggerFactory.getLogger(WeixinServiceImpl.class);
 @Override
 public String processRequest(HttpServletRequest req) {
         // 解析微信传递的参数
@@ -102,20 +101,7 @@ public String processRequest(HttpServletRequest req) {
                     im.setArticleCount(2);
                     return MessageUtil.newsMessageToXml(im);
                 }
-                else if (content.contains("3")) {
-                    VideoMessage im = new VideoMessage();
-                    im.setToUserName(FromUserName);
-                    im.setFromUserName(ToUserName);
-                    im.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_VIDEO);
-                    im.setCreateTime(System.currentTimeMillis());
-                    Video video = new Video();
-                    video.setMediaId(xmlMap.get("MediaId"));
-                    video.setTitle("hahah");
-                    video.setDescription("还给你一个视频");
-                    im.setVideo(video);
-                    String xml = MessageUtil.videoMessageToXml(im);
-                    return xml;
-                }
+
                 // 响应
                 TextMessage tm = new TextMessage();
                 tm.setToUserName(FromUserName);
@@ -126,6 +112,31 @@ public String processRequest(HttpServletRequest req) {
 
                 String xml = MessageUtil.textMessageToXml(tm);
                 log.info("xml:" + xml);
+                return xml;
+            }
+            else if (MsgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VIDEO)) {
+//                System.out.print(xmlMap.get("MediaId"));
+//                TextMessage tm = new TextMessage();
+//                tm.setToUserName(FromUserName);
+//                tm.setFromUserName(ToUserName);
+//                tm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+//                tm.setCreateTime(System.currentTimeMillis());
+//                tm.setContent("你好，你发送的内容是：\n" + "视频"+xmlMap.get("MediaId"));
+//
+//                String xml = MessageUtil.textMessageToXml(tm);
+//                log.info("xml:" + xml);
+//                return xml;
+                VideoMessage im = new VideoMessage();
+                im.setToUserName(FromUserName);
+                im.setFromUserName(ToUserName);
+                im.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_VIDEO);
+                im.setCreateTime(System.currentTimeMillis());
+                Video video = new Video();
+                video.setMediaId("w0vrKRFwV9xFuwJ4K8er2vUDwV6ww4_Wy9AwMw5aAPo99WHs1zrEYSaLvgzxY2ZI");
+                video.setTitle("hahah");
+                video.setDescription("还给你一个视频");
+                im.setVideo(video);
+                String xml = MessageUtil.videoMessageToXml(im);
                 return xml;
             }
             else if (MsgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {

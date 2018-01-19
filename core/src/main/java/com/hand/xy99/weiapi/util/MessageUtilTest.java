@@ -1,13 +1,10 @@
 package com.hand.xy99.weiapi.util;
-
 /**
  * Created by xieshuai on 2018/1/16.
  */
-
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -16,7 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 public class MessageUtilTest {
     /**
      * 解析微信发来的请求（XML）
@@ -208,7 +204,6 @@ String media_id = "cuy8FdvowpQyKE5Q3XJYj4pxeagBb1L8Qs1GEz12qyar0iNHulufdqZ0CALZV
                 fromUserName,toUserName, getUtcTime(),media_id,title,description
         );
     }
-
     /**
      * 回复音乐消息
      * @param map
