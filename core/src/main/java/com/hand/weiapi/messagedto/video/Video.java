@@ -7,9 +7,9 @@ public class Video {
     /**
      * 存在的MediaId
      */
-    public String MediaId;
-    public String Title;
-    public String Description;
+    private String MediaId;
+    private String Title;
+    private String Description;
 
     public String getTitle() {
         return Title;

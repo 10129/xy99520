@@ -6,6 +6,8 @@ import com.hand.weiapi.messagedto.image.Image;
 import com.hand.weiapi.messagedto.image.ImageMessage;
 import com.hand.weiapi.messagedto.music.Music;
 import com.hand.weiapi.messagedto.music.MusicMessage;
+import com.hand.weiapi.messagedto.news.NewsMessage;
+import com.hand.weiapi.messagedto.news.item;
 import com.hand.weiapi.messagedto.text.TextMessage;
 import com.hand.weiapi.messagedto.video.Video;
 import com.hand.weiapi.messagedto.video.VideoMessage;
@@ -26,7 +28,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 @Controller
 public class weChatAccounts extends HttpServlet {
@@ -110,6 +114,37 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             music.setMusicUrl(hqMusicUrl);
             im.setMusic(music);
             xml = MessageUtil.musicMessageToXml(im);
+        } else if(content.contains("图文")){
+            NewsMessage im = new NewsMessage();
+            im.setToUserName(FromUserName);
+            im.setFromUserName(ToUserName);
+            im.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+            im.setCreateTime(System.currentTimeMillis());
+            item item1 =new item();
+            String title1 = "HAP审计的实现和使用";
+            String description1 = "由于HAP框架用的是Spring+SpringMVC+Mybatis，其中Mybatis中的拦截器可以选择在被拦截的方法前后执行自己的逻辑。所以我们通过拦截器实现了审计功能，当用户对某个实体类进行增删改操作时，拦截器可以拦截，然后将操作的数据记录在审计表中，便于用户以后审计。";
+            String picUrl1 ="http://upload-images.jianshu.io/upload_images/7855203-b9e9c9ded8a732a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240";
+            String textUrl1 = "http://blog.csdn.net/a1786223749/article/details/78330890";
+
+            String title2 = "KendoUI之Grid的问题详解";
+            String description2 = "kendoLov带出的值出现 null和undefined";
+            String picUrl2 ="https://demos.telerik.com/kendo-ui/content/shared/images/theme-builder.png";
+            String textUrl2 = "http://blog.csdn.net/a1786223749/article/details/78330908";
+            item1.setTitle(title1);
+            item1.setDescription(description1);
+            item1.setPicUrl(picUrl1);
+            item1.setUrl(textUrl1);
+            item item2 =new item();
+            item2.setTitle(title2);
+            item2.setDescription(description2);
+            item2.setPicUrl(picUrl2);
+            item2.setUrl(textUrl2);
+            List<item> itemList =new ArrayList<item>();
+            itemList.add(item1);
+            itemList.add(item2);
+            im.setArticles(itemList);
+            im.setArticleCount(2);
+            xml = MessageUtil.newsMessageToXml(im);
         } else {
             // 响应
             TextMessage tm = new TextMessage();

@@ -13,19 +13,19 @@ public class BaseMessage {
     /**
      * 开发者微信号
      */
-    public String ToUserName;
+    private String ToUserName;
     /**
      * 发送方帐号（一个OpenID）
      */
-    public String FromUserName;
+    private String FromUserName;
     /**
      * 消息创建时间 （整型）
      */
-    public long CreateTime;
+    private long CreateTime;
     /**
      * text
      */
-    public String MsgType ;
+    private String MsgType ;
 
     public String getToUserName() {
         return ToUserName;

@@ -5,10 +5,10 @@ package com.hand.weiapi.messagedto.music;
  */
 public class Music {
 
-    public String Title;
-    public String Description;
-    public String MusicUrl;
-    public String HQMusicUrl;
+    private String Title;
+    private String Description;
+    private String MusicUrl;
+    private String HQMusicUrl;
 
     public String getTitle() {
         return Title;

@@ -9,7 +9,7 @@ public class VoiceMessage extends BaseMessage {
     /**
      * 消息id，64位整型
      */
-    public Voice Voice ;
+    private Voice Voice ;
 
     public com.hand.weiapi.messagedto.voice.Voice getVoice() {
         return Voice;

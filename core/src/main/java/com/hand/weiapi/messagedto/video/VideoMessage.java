@@ -10,7 +10,7 @@ public class VideoMessage extends BaseMessage {
     /**
      * 消息id，64位整型
      */
-    public Video Video ;
+    private Video Video ;
     /**
      * 图片的URL
      */

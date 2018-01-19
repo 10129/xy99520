@@ -9,7 +9,7 @@ public class MusicMessage extends BaseMessage {
     /**
      * 消息id，64位整型
      */
-    public Music Music ;
+    private Music Music ;
 
     public Music getMusic() {
         return Music;

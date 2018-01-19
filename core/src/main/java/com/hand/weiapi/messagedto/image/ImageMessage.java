@@ -11,11 +11,11 @@ public class ImageMessage extends BaseMessage {
     /**
      * 消息id，64位整型
      */
-    public Image Image ;
+    private Image Image ;
     /**
      * 图片的URL
      */
-//    public String  PicUrl;
+//    private String  PicUrl;
 
     public Image getImage() {
         return Image;

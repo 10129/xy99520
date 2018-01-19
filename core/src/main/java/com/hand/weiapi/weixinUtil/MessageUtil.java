@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.hand.weiapi.messagedto.image.ImageMessage;
 import com.hand.weiapi.messagedto.music.MusicMessage;
+import com.hand.weiapi.messagedto.news.NewsMessage;
 import com.hand.weiapi.messagedto.text.TextMessage;
 import com.hand.weiapi.messagedto.video.VideoMessage;
 import com.hand.weiapi.messagedto.voice.VoiceMessage;
@@ -199,6 +200,17 @@ public class MessageUtil {
         return xstream.toXML(videoMessage);
     }
     /**
+     * 转换图文消息
+     *
+     * @param newsMessage
+     *
+     * @return xml
+     */
+    public static String newsMessageToXml(NewsMessage newsMessage) {
+        xstream.alias("xml", newsMessage.getClass());
+        return xstream.toXML(newsMessage);
+    }
+    /**
      * @author Created by xieshuai on 2018/1/18.
      * 定义xstream让value自动加上CDATA标签
      */
@@ -217,6 +229,12 @@ public class MessageUtil {
                             arr[0] = (char) ((int) arr[0] - 32);
                         }
                         name = new String(arr);
+                        //如果是类名则取最后.的位置
+                        if(name!=null &&name.contains(".")){
+//                            int i=name.lastIndexOf(".");
+                           name= name.substring(name.lastIndexOf(".")+1,name.length());
+                        }
+
                     }
                     super.startNode(name, clazz);
 

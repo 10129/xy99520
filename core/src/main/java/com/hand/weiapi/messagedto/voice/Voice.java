@@ -7,7 +7,7 @@ public class Voice {
     /**
      * 存在的MediaId
      */
-    public String MediaId;
+    private String MediaId;
 
     public String getMediaId() {
         return MediaId;
