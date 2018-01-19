@@ -3,13 +3,26 @@
          xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          id="WebApp_ID" version="2.5">
-
-<!--<welcome-file-list>-->
+  <display-name>xy99520</display-name>
+  <description>xy99520</description>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath*:/spring/applicationContext*.xml</param-value>
+  </context-param>
+  <!-- 监听servletContext，启动contextConfigLocation中的spring配置信息 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- 防止spring内存溢出监听器 -->
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+  <!--<welcome-file-list>-->
   <!--        <welcome-file>index.html</welcome-file>-->
 <!--</welcome-file-list>-->
   <servlet>
     <servlet-name>weChatServlet</servlet-name>
-    <servlet-class>com.hand.weiapi.weChatServlet.weChatAccounts</servlet-class>
+    <servlet-class>com.hand.xy99.weiapi.weChatServlet.weChatAccounts</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>weChatServlet</servlet-name>
@@ -18,7 +31,7 @@
 
   <servlet>
     <servlet-name>accessTokenServlet</servlet-name>
-    <servlet-class>com.hand.weiapi.weChatServlet.AccessTokenServlet</servlet-class>
+    <servlet-class>com.hand.xy99.weiapi.weChatServlet.AccessTokenServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>accessTokenServlet</servlet-name>
