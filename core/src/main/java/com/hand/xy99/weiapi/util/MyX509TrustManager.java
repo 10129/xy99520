@@ -1,4 +1,4 @@
-package com.hand.xy99.weiapi.weixinUtil;
+package com.hand.xy99.weiapi.util;
 
 /**
  * Created by xieshuai on 2018/1/18.

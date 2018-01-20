@@ -2,11 +2,10 @@ package com.hand.xy99.weiapi.weChatServlet;
 
 import com.hand.xy99.weiapi.dto.AccessToken;
 import com.hand.xy99.weiapi.dto.AccessTokenInfo;
-import com.hand.xy99.weiapi.menu.CommandButton;
-import com.hand.xy99.weiapi.menu.ComplexButton;
 import com.hand.xy99.weiapi.menu.Menu;
-import com.hand.xy99.weiapi.menu.ViewButton;
-import com.hand.xy99.weiapi.weixinUtil.MyX509TrustManager;
+import com.hand.xy99.weiapi.service.IWeixinService;
+import com.hand.xy99.weiapi.service.impl.WeixinServiceImpl;
+import com.hand.xy99.weiapi.util.MyX509TrustManager;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -62,7 +61,12 @@ public class AccessTokenServlet extends HttpServlet {
                         AccessTokenInfo.accessToken = getAccessToken(APPID, APP_SECRET);
                         //获取成功
                         if (AccessTokenInfo.accessToken != null) {
-                            createmenu2();
+                            //创建菜单
+                            IWeixinService weixinService=new WeixinServiceImpl();
+                            Menu menu=weixinService.getMenu(AccessTokenInfo.accessToken);
+                            String token= AccessTokenInfo.accessToken.getToken();
+                            Boolean bl=createMenu(menu,  token);
+                            logger.info("成功创建菜单！");
                             //获取到access_token 休眠7000秒,大约2个小时左右
                             Thread.sleep(7000 * 1000);
                         } else {
@@ -213,79 +217,5 @@ public class AccessTokenServlet extends HttpServlet {
 
         return true;
     }
-    public static boolean createmenu2(){
-        // 1).获取access_token
-        AccessToken accessToken = AccessTokenInfo.accessToken;
-        // 2).创建菜单
-        Menu menu = new Menu();
 
-        // 菜单1
-        ComplexButton cb0 = new ComplexButton();
-        cb0.setName("超值预定");
-
-        ViewButton cb01 = new ViewButton();
-        cb01.setName("团购订单");
-        cb01.setType("view");
-        cb01.setUrl("http://www.meituan.com");
-
-        ViewButton cb02 = new ViewButton();
-        cb02.setName("微信团购");
-        cb02.setType("view");
-        cb02.setUrl("http://www.weixin.com");
-
-        cb0.setSub_button(new ViewButton[]{cb01,cb02});
-
-        // 菜单2
-        ComplexButton cb1 = new ComplexButton();
-        cb1.setName("我的服务");
-
-        ViewButton cb11 = new ViewButton();
-        cb11.setName("办登机牌");
-        cb11.setType("view");
-        cb11.setUrl("http://www.meituan.com");
-
-        ViewButton cb12 = new ViewButton();
-        cb12.setName("航班动态");
-        cb12.setType("view");
-        cb12.setUrl("http://www.meituan.com");
-
-        ViewButton cb13 = new ViewButton();
-        cb13.setName("里程查询");
-        cb13.setType("view");
-        cb13.setUrl("http://www.meituan.com");
-
-        cb1.setSub_button(new ViewButton[]{cb11,cb12,cb13});
-
-        // 菜单3
-        ComplexButton cb2 = new ComplexButton();
-        cb2.setName("我的测试");
-
-        CommandButton cb21 = new CommandButton();
-        cb21.setName("回复文字");
-        cb21.setType("click");
-        cb21.setKey("reply_words");
-
-        CommandButton cb22 = new CommandButton();
-        cb22.setName("回复音乐");
-        cb22.setType("click");
-        cb22.setKey("reply_music");
-
-        CommandButton cb23 = new CommandButton();
-        cb23.setName("回复图文");
-        cb23.setType("click");
-        cb23.setKey("reply_news");
-
-        CommandButton cb24 = new CommandButton();
-        cb24.setName("回复链接");
-        cb24.setType("click");
-        cb24.setKey("reply_link");
-
-        cb2.setSub_button(new CommandButton[]{cb21,cb22,cb23,cb24});
-
-        menu.setButton(new ComplexButton[]{cb0,cb1,cb2});
-        String menuJsonString = JSONObject.fromObject(menu).toString();
-        System.out.println(menuJsonString);
-        Boolean aaa= createMenu(menu, accessToken.getToken());
-        return aaa;
-    }
 }

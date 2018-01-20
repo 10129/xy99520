@@ -3,20 +3,8 @@ package com.hand.xy99.weiapi.weChatServlet;
  *Created by xieshuai on 2018/1/15.
  */
 import com.hand.xy99.user.service.IUserService;
-import com.hand.xy99.weiapi.messagedto.image.Image;
-import com.hand.xy99.weiapi.messagedto.image.ImageMessage;
-import com.hand.xy99.weiapi.messagedto.music.Music;
-import com.hand.xy99.weiapi.messagedto.music.MusicMessage;
-import com.hand.xy99.weiapi.messagedto.news.NewsMessage;
-import com.hand.xy99.weiapi.messagedto.news.item;
-import com.hand.xy99.weiapi.messagedto.text.TextMessage;
-import com.hand.xy99.weiapi.messagedto.video.Video;
-import com.hand.xy99.weiapi.messagedto.video.VideoMessage;
-import com.hand.xy99.weiapi.messagedto.voice.Voice;
-import com.hand.xy99.weiapi.messagedto.voice.VoiceMessage;
 import com.hand.xy99.weiapi.service.IWeixinService;
 import com.hand.xy99.weiapi.service.impl.WeixinServiceImpl;
-import com.hand.xy99.weiapi.weixinUtil.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +18,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+
 @Service
 public class weChatAccounts extends HttpServlet {
     static Logger logger = LoggerFactory.getLogger(weChatAccounts.class);

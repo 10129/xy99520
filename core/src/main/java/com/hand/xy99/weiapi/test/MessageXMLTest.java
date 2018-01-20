@@ -1,4 +1,4 @@
-package com.hand.xy99.weiapi.util;
+package com.hand.xy99.weiapi.test;
 /**
  * Created by xieshuai on 2018/1/16.
  */
@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-public class MessageUtilTest {
+public class MessageXMLTest {
     /**
      * 解析微信发来的请求（XML）
      * @param request
