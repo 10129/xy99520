@@ -1,21 +1,23 @@
 package com.hand.xy99.weiapi.dto;
 
 /**
- * Created by xieshuai on 2018/1/16.
+ * Created by xieshuai on 2018/1/18.
  */
 public class AccessToken {
-    private String tokenName; //获取到的凭证
-    private int expireSecond; //凭证有效时间 单位:秒
-    public String getTokenName() {
-        return tokenName;
+    // 获取到的凭证
+    private String token;
+    // 凭证有效时间，单位：秒
+    private int expiresIn;
+    public String getToken() {
+        return token;
     }
-    public void setTokenName(String tokenName) {
-        this.tokenName = tokenName;
+    public void setToken(String token) {
+        this.token = token;
     }
-    public int getExpireSecond() {
-        return expireSecond;
+    public int getExpiresIn() {
+        return expiresIn;
     }
-    public void setExpireSecond(int expireSecond) {
-        this.expireSecond = expireSecond;
+    public void setExpiresIn(int expiresIn) {
+        this.expiresIn = expiresIn;
     }
 }
