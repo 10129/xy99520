@@ -49,9 +49,6 @@ public class AccessTokenServlet extends HttpServlet {
         System.out.println("-----启动AccessTokenServlet-----");
         super.init();
 
-//        final String appId = "wxd135f4cb0d7346bf";//getInitParameter("appId");
-//        final String appSecret = "7e55c0ed3b6e16d4ea36c7365f410d88";//getInitParameter("appSecret");
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -129,6 +126,7 @@ public class AccessTokenServlet extends HttpServlet {
 
         // 每次获取access_token后，存入accessTokenMap
         // 下次获取时，如果没有过期直接从accessTokenMap取。
+        AccessTokenInfo.accessToken=at;
         accessTokenMap.put("getTokenTime", new Date());
         accessTokenMap.put("token", access_token);
         accessTokenMap.put("expire", expires_in);

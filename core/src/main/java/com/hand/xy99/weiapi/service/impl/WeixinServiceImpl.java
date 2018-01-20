@@ -138,7 +138,7 @@ public String processRequest(HttpServletRequest req) {
                 im.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_VIDEO);
                 im.setCreateTime(System.currentTimeMillis());
                 Video video = new Video();
-                video.setMediaId("w0vrKRFwV9xFuwJ4K8er2vUDwV6ww4_Wy9AwMw5aAPo99WHs1zrEYSaLvgzxY2ZI");
+                video.setMediaId("XZGjf-nyUEOZ2e59bo1GEcS21GrU6u0MJtrDIYyuwugsUPoHWsTSpYZmnR5Fbusj");
                 video.setTitle("hahah");
                 video.setDescription("还给你一个视频");
                 im.setVideo(video);
@@ -169,11 +169,27 @@ public String processRequest(HttpServletRequest req) {
                         tm.setFromUserName(ToUserName);
                         tm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
                         tm.setCreateTime(System.currentTimeMillis());
-                        tm.setContent("你好，你点击了回复文本菜单：\n");
+                        tm.setContent("你好，你点击了回复文本菜单：测试测试\n");
 
                         String xml = MessageUtil.textMessageToXml(tm);
                         log.info("xml:" + xml);
                         return xml;
+                    }else if (eventKey.equals("reply_music")) {
+                        MusicMessage mm =  new MusicMessage();
+                        mm.setFromUserName(ToUserName);
+                        mm.setToUserName(FromUserName);
+                        mm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_MUSIC);
+                        mm.setCreateTime(System.currentTimeMillis());
+                        Music music = new Music();
+                        music.setTitle("Maid with the Flaxen Hair");
+                        music.setDescription("测试音乐");
+                        music.setMusicUrl("http://yinyueshiting.baidu.com/data2/music/123297915/1201250291415073661128.mp3?xcode=e2edf18bbe9e452655284217cdb920a7a6a03c85c06f4409");
+                        music.setHQMusicUrl("http://yinyueshiting.baidu.com/data2/music/123297915/1201250291415073661128.mp3?xcode=e2edf18bbe9e452655284217cdb920a7a6a03c85c06f4409");
+                        mm.setMusic(music);
+
+                        String musicXml = MessageUtil.musicMessageToXml(mm);
+                        log.info("musicXml:\n" + musicXml);
+                        return musicXml;
                     }
                 }
             }

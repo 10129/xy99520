@@ -38,20 +38,20 @@ public class UploadMediaApiUtil {
         return String.format(DOWNLOAD_MEDIA, token, mediaId);
     }
 
-    /**
-     * 通用接口获取token凭证
-     *
-     * @param appId
-     * @param appSecret
-     * @return
-     */
-    public String getAccessToken(String appId, String appSecret) {
-        NetWorkUtil netHelper = new NetWorkUtil();
-        String Url = String.format("https://api.weixin.qq.com/cgi‐bin/token?grant_type=client_credential&appid=%s&secret=%s", appId, appSecret);
-        String result = netHelper.getHttpsResponse(Url, "");
-        JSONObject json = JSON.parseObject(result);
-        return json.getString("access_token");
-    }
+//    /**
+//     * 通用接口获取token凭证
+//     *
+//     * @param appId
+//     * @param appSecret
+//     * @return
+//     */
+//    public String getAccessToken(String appId, String appSecret) {
+//        NetWorkUtil netHelper = new NetWorkUtil();
+//        String Url = String.format("https://api.weixin.qq.com/cgi‐bin/token?grant_type=client_credential&appid=%s&secret=%s", appId, appSecret);
+//        String result = netHelper.getHttpsResponse(Url, "");
+//        JSONObject json = JSON.parseObject(result);
+//        return json.getString("access_token");
+//    }
 
     /**
      * 素材上传到微信服务器

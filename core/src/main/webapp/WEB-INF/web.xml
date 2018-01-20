@@ -37,4 +37,13 @@
     <servlet-name>accessTokenServlet</servlet-name>
     <url-pattern>/accessTokenServlet</url-pattern> <!--url-pattern必须与servlet-name一致-->
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>uploadMediaServlet</servlet-name>
+    <servlet-class>com.hand.xy99.weiapi.weChatServlet.UploadMediaServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>uploadMediaServlet</servlet-name>
+    <url-pattern>/uploadMediaServlet</url-pattern> <!--url-pattern必须与servlet-name一致-->
+  </servlet-mapping>
 </web-app>
