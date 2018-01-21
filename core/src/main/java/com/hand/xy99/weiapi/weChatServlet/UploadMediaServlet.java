@@ -4,6 +4,7 @@ package com.hand.xy99.weiapi.weChatServlet;
  */
 import com.alibaba.fastjson.JSONObject;
 import com.hand.xy99.weiapi.dto.AccessTokenInfo;
+import com.hand.xy99.weiapi.message.httpclient.WeixinAPIHelper;
 import com.hand.xy99.weiapi.util.UploadMediaApiUtil;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,13 +31,12 @@ public class UploadMediaServlet extends HttpServlet {
         String appSecret = AccessTokenServlet.APP_SECRET;
         Map<String,Object> accessTokenMap1=AccessTokenServlet.accessTokenMap;
         String accessToken = AccessTokenInfo.accessToken.getToken();
-//        {"media_id":"ic9BXM7j4a07SPHzRdgeCh4LE0RvXghkvF-wDr1lNSb-nG83ScU2wlOOtYxPqhM1","created_at":1516445859,"type":"image"}
-//        String filePath = "E:\\垃圾\\素材\\1237.png";
-        String filePath = "E:\\垃圾\\素材\\1237.mp4";
-        File file = new File(filePath);
-//        String type = "IMAGE";
-        String type = "VIDEO";
-        JSONObject jsonObject = uploadMediaApiUtil.uploadMedia(file,accessToken,type);
-        System.out.println(jsonObject.toString());
+//        String filePath = "E:\\垃圾\\素材\\1237.mp4";
+//        File file = new File(filePath);
+//        String type = "VIDEO";
+//        JSONObject jsonObject = uploadMediaApiUtil.uploadMedia(file,accessToken,type);
+//        System.out.println(jsonObject.toString());
+        WeixinAPIHelper weixinAPIHelper =new  WeixinAPIHelper();
+        weixinAPIHelper.sendTextMessageToUser("早上好！","");
     }
 }
