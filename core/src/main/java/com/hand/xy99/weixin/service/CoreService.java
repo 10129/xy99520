@@ -3,15 +3,11 @@ package com.hand.xy99.weixin.service;
 /**
  * Created by hand on 2018/1/21.
  */
-
 import java.util.Date;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
+import com.hand.xy99.weiapi.util.MessageUtil;
 import com.hand.xy99.weixin.message.resp.TextMessage;
-import com.hand.xy99.weixin.util.MessageUtil;
-
 /**
  * 类名: CoreService </br>
  * 描述: 核心服务类 </br>

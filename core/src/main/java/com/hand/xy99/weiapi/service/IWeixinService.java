@@ -1,7 +1,7 @@
 package com.hand.xy99.weiapi.service;
 
-import com.hand.xy99.weiapi.dto.AccessToken;
 import com.hand.xy99.weiapi.menu.Menu;
+import com.hand.xy99.weixin.pojo.Token;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,5 +20,5 @@ public interface IWeixinService {
      * @param accessToken
      * @return
      */
-    public Menu getMenu(AccessToken accessToken);
+    public Menu getMenu(Token accessToken);
 }

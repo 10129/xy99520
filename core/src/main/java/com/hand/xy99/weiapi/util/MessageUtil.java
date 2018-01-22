@@ -1,27 +1,26 @@
 package com.hand.xy99.weiapi.util;
-
-import java.io.IOException;
+/**
+ * Created by hand on 2018/1/21.
+ */
 import java.io.InputStream;
 import java.io.Writer;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 
-import com.hand.xy99.weiapi.messagedto.image.ImageMessage;
-import com.hand.xy99.weiapi.messagedto.music.MusicMessage;
-import com.hand.xy99.weiapi.messagedto.news.NewsMessage;
-import com.hand.xy99.weiapi.messagedto.text.TextMessage;
-import com.hand.xy99.weiapi.messagedto.video.VideoMessage;
-import com.hand.xy99.weiapi.messagedto.voice.VoiceMessage;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
+import com.hand.xy99.weixin.message.resp.Article;
+import com.hand.xy99.weixin.message.resp.ImageMessage;
+import com.hand.xy99.weixin.message.resp.MusicMessage;
+import com.hand.xy99.weixin.message.resp.NewsMessage;
+import com.hand.xy99.weixin.message.resp.TextMessage;
+import com.hand.xy99.weixin.message.resp.VideoMessage;
+import com.hand.xy99.weixin.message.resp.VoiceMessage;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
@@ -29,257 +28,182 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 
 /**
- * 对消息的处理
- * @author Created by xieshuai on 2018/1/18.
- *
+ * 类名: MessageUtil </br>
+ * 描述: 消息处理工具类</br>
+ * 开发人员： hand.xy99 </br>
+ * 创建时间：  2015-9-30 </br>
+ * 发布版本：V1.0  </br>
  */
 public class MessageUtil {
-    /**
-     * text
-     */
+    // 请求消息类型：文本
+    public static final String REQ_MESSAGE_TYPE_TEXT = "text";
+    // 请求消息类型：图片
+    public static final String REQ_MESSAGE_TYPE_IMAGE = "image";
+    // 请求消息类型：语音
+    public static final String REQ_MESSAGE_TYPE_VOICE = "voice";
+    // 请求消息类型：视频
+    public static final String REQ_MESSAGE_TYPE_VIDEO = "video";
+    // 请求消息类型：小视频
+    public static final String REQ_MESSAGE_TYPE_SHORTVIDEO = "shortvideo";
+    // 请求消息类型：地理位置
+    public static final String REQ_MESSAGE_TYPE_LOCATION = "location";
+    // 请求消息类型：链接
+    public static final String REQ_MESSAGE_TYPE_LINK = "link";
+
+    // 请求消息类型：事件推送
+    public static final String REQ_MESSAGE_TYPE_EVENT = "event";
+
+    // 事件类型：subscribe(订阅)
+    public static final String EVENT_TYPE_SUBSCRIBE = "subscribe";
+    // 事件类型：unsubscribe(取消订阅)
+    public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";
+    // 事件类型：scan(用户已关注时的扫描带参数二维码)
+    public static final String EVENT_TYPE_SCAN = "scan";
+    // 事件类型：LOCATION(上报地理位置)
+    public static final String EVENT_TYPE_LOCATION = "LOCATION";
+    // 事件类型：CLICK(自定义菜单)
+    public static final String EVENT_TYPE_CLICK = "CLICK";
+
+    // 响应消息类型：文本
     public static final String RESP_MESSAGE_TYPE_TEXT = "text";
-
-    /**
-     * music
-     */
+    // 响应消息类型：图片
+    public static final String RESP_MESSAGE_TYPE_IMAGE = "image";
+    // 响应消息类型：语音
+    public static final String RESP_MESSAGE_TYPE_VOICE = "voice";
+    // 响应消息类型：视频
+    public static final String RESP_MESSAGE_TYPE_VIDEO = "video";
+    // 响应消息类型：音乐
     public static final String RESP_MESSAGE_TYPE_MUSIC = "music";
-
-    /**
-     * news
-     */
+    // 响应消息类型：图文
     public static final String RESP_MESSAGE_TYPE_NEWS = "news";
 
     /**
-     * text
+     * 解析微信发来的请求（XML）
+     *
+     * @param request
+     * @return Map<String, String>
+     * @throws Exception
      */
-    public static final String REQ_MESSAGE_TYPE_TEXT = "text";
+    @SuppressWarnings("unchecked")
+    public static Map<String, String> parseXml(HttpServletRequest request) throws Exception {
+        // 将解析结果存储在HashMap中
+        Map<String, String> map = new HashMap<String, String>();
 
-    /**
-     * image
-     */
-    public static final String REQ_MESSAGE_TYPE_IMAGE = "image";
-
-    /**
-     * link
-     */
-    public static final String REQ_MESSAGE_TYPE_LINK = "link";
-
-    /**
-     * location
-     */
-    public static final String REQ_MESSAGE_TYPE_LOCATION = "location";
-
-    /**
-     * voice
-     */
-    public static final String REQ_MESSAGE_TYPE_VOICE = "voice";
-
-    /**
-     * video
-     */
-    public static final String REQ_MESSAGE_TYPE_VIDEO = "video";
-
-    /**
-     * shortvideo
-     */
-    public static final String REQ_MESSAGE_TYPE_SHORTVIDEO = "shortvideo";
-
-    /**
-     * event
-     */
-    public static final String REQ_MESSAGE_TYPE_EVENT = "event";
-
-    /**
-     * subscribe
-     */
-    public static final String EVENT_TYPE_SUBSCRIBE = "subscribe";
-
-    /**
-     * unsubscribe
-     */
-    public static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";
-
-    /**
-     * CLICK
-     */
-    public static final String EVENT_TYPE_CLICK = "CLICK";
-    public static Pattern patternInt = Pattern.compile("[0-9]*(\\.?)[0-9]*");
-    public static Pattern patternFloat = Pattern.compile("[0-9]+");
-
-
-    public static Map<String,String> parseXml(HttpServletRequest request){
-
-        Map<String,String> messageMap=new HashMap<String, String>();
-
-        InputStream inputStream=null;
-        try {
-            //读取request Stream信息
-            inputStream=request.getInputStream();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+        // 从request中取得输入流
+        InputStream inputStream = request.getInputStream();
+        // 读取输入流
         SAXReader reader = new SAXReader();
-        Document document=null;
-        try {
-            document = reader.read(inputStream);
-        } catch (DocumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Document document = reader.read(inputStream);
+        // 得到xml根元素
+        Element root = document.getRootElement();
+        // 得到根元素的所有子节点
+        List<Element> elementList = root.elements();
 
-        Element root=document.getRootElement();
-        List<Element> elementsList=root.elements();
+        // 遍历所有子节点
+        for (Element e : elementList){
+            map.put(e.getName(), e.getText());}
 
-        for(Element e:elementsList){
-            messageMap.put(e.getName(),e.getText());
-        }
-        try {
-            inputStream.close();
-            inputStream=null;
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
+        // 释放资源
+        inputStream.close();
+        inputStream = null;
 
-        return messageMap;
+        return map;
     }
 
-
     /**
-     * 转换文本消息
-     *
-     * @param textMessage
-     *
-     * @return xml
-     */
-    public static String textMessageToXml(TextMessage textMessage) {
-        xstream.alias("xml", textMessage.getClass());
-        return xstream.toXML(textMessage);
-    }
-    /**
-     * 转换图片消息
-     *
-     * @param imageMessage
-     *
-     * @return xml
-     */
-    public static String imageMessageToXml(ImageMessage imageMessage) {
-        xstream.alias("xml", imageMessage.getClass());
-        return xstream.toXML(imageMessage);
-    }
-    /**
-     * 转换声音消息
-     *
-     * @param voiceMessage
-     *
-     * @return xml
-     */
-    public static String voiceMessageToXml(VoiceMessage voiceMessage) {
-        xstream.alias("xml", voiceMessage.getClass());
-        return xstream.toXML(voiceMessage);
-    }
-    /**
-     * 转换音乐消息
-     *
-     * @param musicMessage
-     *
-     * @return xml
-     */
-    public static String musicMessageToXml(MusicMessage musicMessage) {
-        xstream.alias("xml", musicMessage.getClass());
-        return xstream.toXML(musicMessage);
-    }
-    /**
-     * 转换视频消息
-     *
-     * @param videoMessage
-     *
-     * @return xml
-     */
-    public static String videoMessageToXml(VideoMessage videoMessage) {
-        xstream.alias("xml", videoMessage.getClass());
-        return xstream.toXML(videoMessage);
-    }
-    /**
-     * 转换图文消息
-     *
-     * @param newsMessage
-     *
-     * @return xml
-     */
-    public static String newsMessageToXml(NewsMessage newsMessage) {
-        xstream.alias("xml", newsMessage.getClass());
-        return xstream.toXML(newsMessage);
-    }
-    /**
-     * @author Created by xieshuai on 2018/1/18.
-     * 定义xstream让value自动加上CDATA标签
+     * 扩展xstream使其支持CDATA
      */
     private static XStream xstream = new XStream(new XppDriver() {
         @Override
         public HierarchicalStreamWriter createWriter(Writer out) {
             return new PrettyPrintWriter(out) {
-                boolean cdata = false;
+                // 对所有xml节点的转换都增加CDATA标记
+                boolean cdata = true;
+
                 @SuppressWarnings("unchecked")
                 @Override
                 public void startNode(String name, Class clazz) {
-                    if (!name.equals("xml")) {
-                        char[] arr = name.toCharArray();
-                        if (arr[0] >= 'a' && arr[0] <= 'z') {
-                            // arr[0] -= 'a' - 'A';
-                            arr[0] = (char) ((int) arr[0] - 32);
-                        }
-                        name = new String(arr);
-                        //如果是类名则取最后.的位置
-                        if(name!=null &&name.contains(".")){
-//                            int i=name.lastIndexOf(".");
-                           name= name.substring(name.lastIndexOf(".")+1,name.length());
-                        }
-
-                    }
                     super.startNode(name, clazz);
-
                 }
-@Override
-public void setValue(String text) {
-    if (text != null && !"".equals(text)) {
-        if (patternInt.matcher(text).matches()
-                || patternFloat.matcher(text).matches()) {
-            cdata = false;
-        } else {
-            cdata = true;
+                @Override
+                protected void writeText(QuickWriter writer, String text) {
+                    if (cdata) {
+                        writer.write("<![CDATA[");
+                        writer.write(text);
+                        writer.write("]]>");
+                    } else {
+                        writer.write(text);
+                    }
+                }
+            };
         }
-    }
-    super.setValue(text);
-}
-@Override
-protected void writeText(QuickWriter writer, String text) {
-            if (cdata) {
-                writer.write("<![CDATA[");
-                writer.write(text);
-                writer.write("]]>");
-            } else {
-                writer.write(text);
-            }
-        }
-    };
-}
     });
+
     /**
-     * 得到当前时间
-     * @return String
+     * 文本消息对象转换成xml
+     *
+     * @param textMessage 文本消息对象
+     * @return xml
      */
-    private static String getUtcTime() {
-        Date dt = new Date();// 如果不需要格式,可直接用dt,dt就是当前系统时间
-        DateFormat df = new SimpleDateFormat("yyyyMMddhhmm");// 设置显示格式
-        String nowTime = df.format(dt);
-        long dd = (long) 0;
-        try {
-            dd = df.parse(nowTime).getTime();
-        } catch (Exception e) {
-        }
-        return String.valueOf(dd);
+    public static String messageToXml(TextMessage textMessage) {
+        xstream.alias("xml", textMessage.getClass());
+        return xstream.toXML(textMessage);
     }
+
+    /**
+     * 图片消息对象转换成xml
+     *
+     * @param imageMessage 图片消息对象
+     * @return xml
+     */
+    public static String messageToXml(ImageMessage imageMessage) {
+        xstream.alias("xml", imageMessage.getClass());
+        return xstream.toXML(imageMessage);
+    }
+
+    /**
+     * 语音消息对象转换成xml
+     *
+     * @param voiceMessage 语音消息对象
+     * @return xml
+     */
+    public static String messageToXml(VoiceMessage voiceMessage) {
+        xstream.alias("xml", voiceMessage.getClass());
+        return xstream.toXML(voiceMessage);
+    }
+
+    /**
+     * 视频消息对象转换成xml
+     *
+     * @param videoMessage 视频消息对象
+     * @return xml
+     */
+    public static String messageToXml(VideoMessage videoMessage) {
+        xstream.alias("xml", videoMessage.getClass());
+        return xstream.toXML(videoMessage);
+    }
+
+    /**
+     * 音乐消息对象转换成xml
+     *
+     * @param musicMessage 音乐消息对象
+     * @return xml
+     */
+    public static String messageToXml(MusicMessage musicMessage) {
+        xstream.alias("xml", musicMessage.getClass());
+        return xstream.toXML(musicMessage);
+    }
+
+    /**
+     * 图文消息对象转换成xml
+     *
+     * @param newsMessage 图文消息对象
+     * @return xml
+     */
+    public static String messageToXml(NewsMessage newsMessage) {
+        xstream.alias("xml", newsMessage.getClass());
+        xstream.alias("item", new Article().getClass());
+        return xstream.toXML(newsMessage);
+    }
+
 }

@@ -1,19 +1,13 @@
 package com.hand.xy99.weiapi.service.impl;
 
-import com.hand.xy99.weiapi.dto.AccessToken;
 import com.hand.xy99.weiapi.menu.CommandButton;
 import com.hand.xy99.weiapi.menu.ComplexButton;
 import com.hand.xy99.weiapi.menu.Menu;
 import com.hand.xy99.weiapi.menu.ViewButton;
-import com.hand.xy99.weiapi.messagedto.music.Music;
-import com.hand.xy99.weiapi.messagedto.music.MusicMessage;
-import com.hand.xy99.weiapi.messagedto.news.item;
-import com.hand.xy99.weiapi.messagedto.news.NewsMessage;
-import com.hand.xy99.weiapi.messagedto.text.TextMessage;
-import com.hand.xy99.weiapi.messagedto.video.Video;
-import com.hand.xy99.weiapi.messagedto.video.VideoMessage;
 import com.hand.xy99.weiapi.service.IWeixinService;
 import com.hand.xy99.weiapi.util.MessageUtil;
+import com.hand.xy99.weixin.message.resp.*;
+import com.hand.xy99.weixin.pojo.Token;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +51,7 @@ public String processRequest(HttpServletRequest req) {
                     tm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
                     tm.setCreateTime(System.currentTimeMillis());
                     tm.setContent("我的CSDN博客：<a href=\"http://my.csdn.net/qincidong\">我的CSDN博客</a>\n");
-                    return MessageUtil.textMessageToXml(tm);
+                    return MessageUtil.messageToXml(tm);
                 }
                 else if (content.contains("1")) { // 点击了回复音乐
                     MusicMessage mm =  new MusicMessage();
@@ -72,7 +66,7 @@ public String processRequest(HttpServletRequest req) {
                     music.setHQMusicUrl("http://yinyueshiting.baidu.com/data2/music/123297915/1201250291415073661128.mp3?xcode=e2edf18bbe9e452655284217cdb920a7a6a03c85c06f4409");
                     mm.setMusic(music);
 
-                    String musicXml = MessageUtil.musicMessageToXml(mm);
+                    String musicXml = MessageUtil.messageToXml(mm);
                     log.info("musicXml:\n" + musicXml);
                     return musicXml;
                 }
@@ -82,7 +76,7 @@ public String processRequest(HttpServletRequest req) {
                     im.setFromUserName(ToUserName);
                     im.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
                     im.setCreateTime(System.currentTimeMillis());
-                    item item1 =new item();
+                    Article item1 =new Article();
                     String title1 = "HAP审计的实现和使用";
                     String description1 = "由于HAP框架用的是Spring+SpringMVC+Mybatis，其中Mybatis中的拦截器可以选择在被拦截的方法前后执行自己的逻辑。所以我们通过拦截器实现了审计功能，当用户对某个实体类进行增删改操作时，拦截器可以拦截，然后将操作的数据记录在审计表中，便于用户以后审计。";
                     String picUrl1 ="http://upload-images.jianshu.io/upload_images/7855203-b9e9c9ded8a732a1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240";
@@ -95,17 +89,17 @@ public String processRequest(HttpServletRequest req) {
                     item1.setDescription(description1);
                     item1.setPicUrl(picUrl1);
                     item1.setUrl(textUrl1);
-                    item item2 =new item();
+                    Article item2 =new Article();
                     item2.setTitle(title2);
                     item2.setDescription(description2);
                     item2.setPicUrl(picUrl2);
                     item2.setUrl(textUrl2);
-                    List<item> itemList =new ArrayList<item>();
+                    List<Article> itemList =new ArrayList<Article>();
                     itemList.add(item1);
                     itemList.add(item2);
                     im.setArticles(itemList);
                     im.setArticleCount(2);
-                    return MessageUtil.newsMessageToXml(im);
+                    return MessageUtil.messageToXml(im);
                 }
 
                 // 响应
@@ -116,7 +110,7 @@ public String processRequest(HttpServletRequest req) {
                 tm.setCreateTime(System.currentTimeMillis());
                 tm.setContent("你好，你发送的内容是：\n" + content);
 
-                String xml = MessageUtil.textMessageToXml(tm);
+                String xml = MessageUtil.messageToXml(tm);
                 log.info("xml:" + xml);
                 return xml;
             }
@@ -139,10 +133,10 @@ public String processRequest(HttpServletRequest req) {
                 im.setCreateTime(System.currentTimeMillis());
                 Video video = new Video();
                 video.setMediaId("XZGjf-nyUEOZ2e59bo1GEcS21GrU6u0MJtrDIYyuwugsUPoHWsTSpYZmnR5Fbusj");
-                video.setTitle("hahah");
-                video.setDescription("还给你一个视频");
+//                video.setTitle("hahah");
+//                video.setDescription("还给你一个视频");
                 im.setVideo(video);
-                String xml = MessageUtil.videoMessageToXml(im);
+                String xml = MessageUtil.messageToXml(im);
                 return xml;
             }
             else if (MsgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
@@ -155,7 +149,7 @@ public String processRequest(HttpServletRequest req) {
                     tm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
                     tm.setCreateTime(System.currentTimeMillis());
                     tm.setContent("你好，欢迎关注[程序员的生活]公众号！[愉快]/呲牙/玫瑰\n目前可以回复文本消息");
-                    return MessageUtil.textMessageToXml(tm);
+                    return MessageUtil.messageToXml(tm);
                 }
                 else if (event.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
                     // 取消订阅
@@ -171,7 +165,7 @@ public String processRequest(HttpServletRequest req) {
                         tm.setCreateTime(System.currentTimeMillis());
                         tm.setContent("你好，你点击了回复文本菜单：测试测试\n");
 
-                        String xml = MessageUtil.textMessageToXml(tm);
+                        String xml = MessageUtil.messageToXml(tm);
                         log.info("xml:" + xml);
                         return xml;
                     }else if (eventKey.equals("reply_music")) {
@@ -187,7 +181,7 @@ public String processRequest(HttpServletRequest req) {
                         music.setHQMusicUrl("http://yinyueshiting.baidu.com/data2/music/123297915/1201250291415073661128.mp3?xcode=e2edf18bbe9e452655284217cdb920a7a6a03c85c06f4409");
                         mm.setMusic(music);
 
-                        String musicXml = MessageUtil.musicMessageToXml(mm);
+                        String musicXml = MessageUtil.messageToXml(mm);
                         log.info("musicXml:\n" + musicXml);
                         return musicXml;
                     }
@@ -202,7 +196,7 @@ public String processRequest(HttpServletRequest req) {
     }
 
     @Override
-    public Menu getMenu(AccessToken accessToken) {
+    public Menu getMenu(Token accessToken) {
         // 2).创建菜单
         Menu menu = new Menu();
         // 菜单1

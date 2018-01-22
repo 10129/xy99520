@@ -1,7 +1,7 @@
 package com.hand.xy99.weiapi.message.httpclient;
 
-import com.hand.xy99.weiapi.dto.AccessTokenInfo;
-import com.hand.xy99.weiapi.messagedto.text.TextMessage;
+import com.hand.xy99.weixin.message.resp.TextMessage;
+import com.hand.xy99.weixin.pojo.AccessTokenInfo;
 import com.hand.xy99.weiapi.util.MessageUtil;
 import com.hand.xy99.weiapi.weChatServlet.AccessTokenServlet;
 
@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 import static com.hand.xy99.weiapi.util.MessageUtil.REQ_MESSAGE_TYPE_IMAGE;
 import static com.hand.xy99.weiapi.util.MessageUtil.REQ_MESSAGE_TYPE_TEXT;
@@ -39,7 +38,7 @@ public class WeixinAPIHelper {
         //获取accessToken
         AccessTokenInfo.accessToken= AccessTokenServlet.getAccessToken(AccessTokenServlet.APPID, AccessTokenServlet.APP_SECRET);
 
-        String accessToken = AccessTokenInfo.accessToken.getToken();
+        String accessToken = AccessTokenInfo.accessToken.getAccessToken();
 
         //获取请求路径
 
@@ -73,7 +72,7 @@ public class WeixinAPIHelper {
             json = "{\"touser\": \""+toUser+"\",\"msgtype\": \"voice\", \"voice\": {\"media_id\": \""+mediaId+"\"}}";
         }
         //获取access_token
-        String accessToken = AccessTokenInfo.accessToken.getToken();
+        String accessToken = AccessTokenInfo.accessToken.getAccessToken();
         //获取请求路径
         String action = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="+accessToken;
         try {
@@ -113,10 +112,10 @@ public class WeixinAPIHelper {
         textMessage.setCreateTime(System.currentTimeMillis());
 //        textMessage.setFromUserName();
 //        textMessage.setMsgId();
-       String json= MessageUtil.textMessageToXml(textMessage);
+       String json= MessageUtil.messageToXml(textMessage);
         //获取access_token
 
-        String access_token = AccessTokenInfo.accessToken.getToken();
+        String access_token = AccessTokenInfo.accessToken.getAccessToken();
 
         //获取请求路径
 

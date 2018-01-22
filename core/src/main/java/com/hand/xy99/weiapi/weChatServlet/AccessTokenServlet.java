@@ -1,15 +1,13 @@
 package com.hand.xy99.weiapi.weChatServlet;
 
-import com.hand.xy99.weiapi.dto.AccessToken;
-import com.hand.xy99.weiapi.dto.AccessTokenInfo;
+import com.hand.xy99.weixin.pojo.AccessTokenInfo;
 import com.hand.xy99.weiapi.menu.Menu;
-import com.hand.xy99.weixin.pojo.SNSUserInfo;
+import com.hand.xy99.weixin.pojo.Token;
 import com.hand.xy99.weixin.pojo.WeixinUserInfo;
 import com.hand.xy99.weiapi.service.IWeixinService;
 import com.hand.xy99.weiapi.service.impl.WeixinServiceImpl;
 import com.hand.xy99.weiapi.util.CommonUtil;
 import com.hand.xy99.weiapi.util.MyX509TrustManager;
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -62,7 +60,7 @@ public class AccessTokenServlet extends HttpServlet {
                             //创建菜单
                             IWeixinService weixinService=new WeixinServiceImpl();
                             Menu menu=weixinService.getMenu(AccessTokenInfo.accessToken);
-                            String token= AccessTokenInfo.accessToken.getToken();
+                            String token= AccessTokenInfo.accessToken.getAccessToken();
                             Boolean bl=createMenu(menu,  token);
                             logger.info("成功创建菜单！");
                             //获取到access_token 休眠7000秒,大约2个小时左右
@@ -91,8 +89,8 @@ public class AccessTokenServlet extends HttpServlet {
      * @author qincd
      * @date Nov 6, 2014 9:56:43 AM
      */
-    public static AccessToken getAccessToken(String appid, String appSecret) {
-        AccessToken at = new AccessToken();
+    public static Token getAccessToken(String appid, String appSecret) {
+        Token at = new Token();
         // 每次获取access_token时，先从accessTokenMap获取，如果过期了就重新从微信获取
         // 没有过期直接返回
         // 从微信获取的token的有效期为2个小时
@@ -108,7 +106,7 @@ public class AccessTokenServlet extends HttpServlet {
                 // token未过期，直接从缓存获取返回
                 String token = (String) accessTokenMap.get("token");
                 Integer expire = (Integer) accessTokenMap.get("expire");
-                at.setToken(token);
+                at.setAccessToken(token);
                 at.setExpiresIn(expire);
                 return at;
             }
@@ -122,7 +120,7 @@ public class AccessTokenServlet extends HttpServlet {
         logger.info("\naccess_token:" + access_token);
         logger.info("\nexpires_in:" + expires_in);
 
-        at.setToken(access_token);
+        at.setAccessToken(access_token);
         at.setExpiresIn(expires_in);
 
         // 每次获取access_token后，存入accessTokenMap

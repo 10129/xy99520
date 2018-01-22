@@ -4,7 +4,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="basePath" value="${pageContext.request.contextPath}"></c:set>
-<%@page import="com.hand.xy99.weiapi.dto.AccessTokenInfo"%>
+<%@page import="com.hand.xy99.weixin.pojo.AccessTokenInfo"%>
 <html>
   <head>
         <title></title>

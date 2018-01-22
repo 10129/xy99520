@@ -2,8 +2,7 @@ package com.hand.xy99.weiapi.weChatServlet;
 /**
  * Created by xieshuai on 2018/1/16.
  */
-import com.alibaba.fastjson.JSONObject;
-import com.hand.xy99.weiapi.dto.AccessTokenInfo;
+import com.hand.xy99.weixin.pojo.AccessTokenInfo;
 import com.hand.xy99.weiapi.message.httpclient.WeixinAPIHelper;
 import com.hand.xy99.weiapi.util.UploadMediaApiUtil;
 import javax.servlet.ServletException;
@@ -11,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -30,7 +28,7 @@ public class UploadMediaServlet extends HttpServlet {
         String appId = AccessTokenServlet.APPID;
         String appSecret = AccessTokenServlet.APP_SECRET;
         Map<String,Object> accessTokenMap1=AccessTokenServlet.accessTokenMap;
-        String accessToken = AccessTokenInfo.accessToken.getToken();
+        String accessToken = AccessTokenInfo.accessToken.getAccessToken();
 //        String filePath = "E:\\垃圾\\素材\\1237.mp4";
 //        File file = new File(filePath);
 //        String type = "VIDEO";

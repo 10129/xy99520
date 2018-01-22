@@ -10,6 +10,9 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -159,5 +162,19 @@ public class CommonUtil {
             fileExt = ".mp4";}
         return fileExt;
     }
-
+    /**
+     * 得到当前时间
+     * @return String
+     */
+    private static String getUtcTime() {
+        Date dt = new Date();// 如果不需要格式,可直接用dt,dt就是当前系统时间
+        DateFormat df = new SimpleDateFormat("yyyyMMddhhmm");// 设置显示格式
+        String nowTime = df.format(dt);
+        long dd = (long) 0;
+        try {
+            dd = df.parse(nowTime).getTime();
+        } catch (Exception e) {
+        }
+        return String.valueOf(dd);
+    }
 }

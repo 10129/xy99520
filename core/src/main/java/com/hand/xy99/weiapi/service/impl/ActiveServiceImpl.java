@@ -1,6 +1,6 @@
 package com.hand.xy99.weiapi.service.impl;
 
-import com.hand.xy99.weiapi.dto.AccessTokenInfo;
+import com.hand.xy99.weixin.pojo.AccessTokenInfo;
 import com.hand.xy99.weixin.pojo.WeixinUserInfo;
 import com.hand.xy99.weiapi.service.IActiveService;
 
@@ -14,7 +14,7 @@ public class ActiveServiceImpl implements IActiveService {
     @Override
     public void getUser(){
         // 获取接口访问凭证
-        String accessToken = AccessTokenInfo.accessToken.getToken();
+        String accessToken = AccessTokenInfo.accessToken.getAccessToken();
         /**
          * 获取用户信息
          */
