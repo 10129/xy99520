@@ -2,6 +2,7 @@ package com.hand.xy99.weiapi.weChatServlet;
 /**
  * Created by xieshuai on 2018/1/16.
  */
+import com.hand.xy99.weiapi.util.CommonUtil;
 import com.hand.xy99.weixin.pojo.AccessTokenInfo;
 import com.hand.xy99.weiapi.message.httpclient.WeixinAPIHelper;
 import com.hand.xy99.weiapi.util.UploadMediaApiUtil;
@@ -25,9 +26,9 @@ public class UploadMediaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws
             ServletException, IOException {
         UploadMediaApiUtil uploadMediaApiUtil = new UploadMediaApiUtil();
-        String appId = AccessTokenServlet.APPID;
-        String appSecret = AccessTokenServlet.APP_SECRET;
-        Map<String,Object> accessTokenMap1=AccessTokenServlet.accessTokenMap;
+        String appId = CommonUtil.APPID;
+        String appSecret = CommonUtil.APP_SECRET;
+        Map<String,Object> accessTokenMap1=CommonUtil.accessTokenMap;
         String accessToken = AccessTokenInfo.accessToken.getAccessToken();
 //        String filePath = "E:\\垃圾\\素材\\1237.mp4";
 //        File file = new File(filePath);

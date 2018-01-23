@@ -1,5 +1,6 @@
 package com.hand.xy99.weiapi.message.httpclient;
 
+import com.hand.xy99.weiapi.util.CommonUtil;
 import com.hand.xy99.weixin.message.resp.TextMessage;
 import com.hand.xy99.weixin.pojo.AccessTokenInfo;
 import com.hand.xy99.weiapi.util.MessageUtil;
@@ -36,7 +37,7 @@ public class WeixinAPIHelper {
 
         //获取access_token
         //获取accessToken
-        AccessTokenInfo.accessToken= AccessTokenServlet.getAccessToken(AccessTokenServlet.APPID, AccessTokenServlet.APP_SECRET);
+        AccessTokenInfo.accessToken= AccessTokenServlet.getAccessToken(CommonUtil.APPID, CommonUtil.APP_SECRET);
 
         String accessToken = AccessTokenInfo.accessToken.getAccessToken();
 

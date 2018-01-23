@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hand.xy99.weiapi.util.CommonUtil;
 import com.hand.xy99.weixin.pojo.SNSUserInfo;
 import com.hand.xy99.weixin.pojo.WeixinOauth2Token;
 import com.hand.xy99.weixin.util.AdvancedUtil;
@@ -34,7 +35,7 @@ public class OAuthServlet extends HttpServlet {
         // 用户同意授权
         if (!"authdeny".equals(code)) {
             // 获取网页授权access_token
-            WeixinOauth2Token weixinOauth2Token = AdvancedUtil.getOauth2AccessToken("wxe34a90ac7bxxcab85c", "1207d566090a8344xxxd6224c02c", code);
+            WeixinOauth2Token weixinOauth2Token = AdvancedUtil.getOauth2AccessToken(CommonUtil.APPID, CommonUtil.APP_SECRET, code);
             // 网页授权接口访问凭证
             String accessToken = weixinOauth2Token.getAccessToken();
             // 用户标识

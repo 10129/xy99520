@@ -31,14 +31,7 @@ import java.util.*;
 
 public class AccessTokenServlet extends HttpServlet {
     static Logger logger = LoggerFactory.getLogger(AccessTokenServlet.class);
-    public final static String APPID = "wxd135f4cb0d7346bf";
-    public final static String APP_SECRET = "7e55c0ed3b6e16d4ea36c7365f410d88";
-    // 获取access_token的接口地址（GET） 限200（次/天）
-    public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APP_SECRET";
-    // 创建菜单
-    public final static String create_menu_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
-    // 存放：1.token，2：获取token的时间,3.过期时间
-    public final static Map<String,Object> accessTokenMap = new HashMap<String,Object>();
+
     /**
      * 获取AccessToken以线程的方式运行
      * @throws ServletException
@@ -54,7 +47,7 @@ public class AccessTokenServlet extends HttpServlet {
                 while (true) {
                     try {
                         //获取accessToken
-                        AccessTokenInfo.accessToken = getAccessToken(APPID, APP_SECRET);
+                        AccessTokenInfo.accessToken = getAccessToken(CommonUtil.APPID, CommonUtil.APP_SECRET);
                         //获取成功
                         if (AccessTokenInfo.accessToken != null) {
                             //创建菜单
@@ -94,8 +87,8 @@ public class AccessTokenServlet extends HttpServlet {
         // 每次获取access_token时，先从accessTokenMap获取，如果过期了就重新从微信获取
         // 没有过期直接返回
         // 从微信获取的token的有效期为2个小时
-        if (!accessTokenMap.isEmpty()) {
-            Date getTokenTime = (Date) accessTokenMap.get("getTokenTime");
+        if (!CommonUtil.accessTokenMap.isEmpty()) {
+            Date getTokenTime = (Date) CommonUtil.accessTokenMap.get("getTokenTime");
             Calendar c = Calendar.getInstance();
             c.setTime(getTokenTime);
             c.add(Calendar.HOUR_OF_DAY, 2);
@@ -104,14 +97,14 @@ public class AccessTokenServlet extends HttpServlet {
             if (getTokenTime.after(new Date())) {
                 logger.info("缓存中发现token未过期，直接从缓存中获取access_token");
                 // token未过期，直接从缓存获取返回
-                String token = (String) accessTokenMap.get("token");
-                Integer expire = (Integer) accessTokenMap.get("expire");
+                String token = (String) CommonUtil.accessTokenMap.get("token");
+                Integer expire = (Integer) CommonUtil.accessTokenMap.get("expire");
                 at.setAccessToken(token);
                 at.setExpiresIn(expire);
                 return at;
             }
         }
-        String requestUrl = access_token_url.replace("APPID", appid).replace("APP_SECRET", appSecret);
+        String requestUrl = CommonUtil.access_token_url.replace("APPID", appid).replace("APP_SECRET", appSecret);
 
         JSONObject object = handleRequest(requestUrl, "GET", null);
         String access_token = object.getString("access_token");
@@ -126,9 +119,9 @@ public class AccessTokenServlet extends HttpServlet {
         // 每次获取access_token后，存入accessTokenMap
         // 下次获取时，如果没有过期直接从accessTokenMap取。
         AccessTokenInfo.accessToken=at;
-        accessTokenMap.put("getTokenTime", new Date());
-        accessTokenMap.put("token", access_token);
-        accessTokenMap.put("expire", expires_in);
+        CommonUtil.accessTokenMap.put("getTokenTime", new Date());
+        CommonUtil.accessTokenMap.put("token", access_token);
+        CommonUtil.accessTokenMap.put("expire", expires_in);
 
         return at;
     }
@@ -201,7 +194,7 @@ public class AccessTokenServlet extends HttpServlet {
      * @date Nov 6, 2014 9:56:36 AM
      */
     public static boolean createMenu(Menu menu, String accessToken) {
-        String requestUrl = AccessTokenServlet.create_menu_url.replace("ACCESS_TOKEN", accessToken);
+        String requestUrl = CommonUtil.create_menu_url.replace("ACCESS_TOKEN", accessToken);
         String menuJsonString = JSONObject.fromObject(menu).toString();
         JSONObject jsonObject = handleRequest(requestUrl, "POST", menuJsonString);
         String errorCode = jsonObject.getString("errcode");

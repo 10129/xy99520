@@ -168,6 +168,7 @@ public String processRequest(HttpServletRequest req) {
                         String xml = MessageUtil.messageToXml(tm);
                         log.info("xml:" + xml);
                         return xml;
+
                     }else if (eventKey.equals("reply_music")) {
                         MusicMessage mm =  new MusicMessage();
                         mm.setFromUserName(ToUserName);
@@ -204,14 +205,16 @@ public String processRequest(HttpServletRequest req) {
         cb0.setName("超值预定");
 
         ViewButton cb01 = new ViewButton();
-        cb01.setName("团购订单");
+        cb01.setName("测试授权1");
         cb01.setType("view");
-        cb01.setUrl("http://www.meituan.com");
+        String url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd135f4cb0d7346bf&redirect_uri=http://8ir64m.natappfree.cc/oauthServlet&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+        cb01.setUrl(url);
 
         ViewButton cb02 = new ViewButton();
-        cb02.setName("微信团购");
+        cb02.setName("测试授权2");
         cb02.setType("view");
-        cb02.setUrl("http://www.weixin.com");
+        String url2="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd135f4cb0d7346bf&redirect_uri=http://8ir64m.natappfree.cc/oauthServlet&response_type=code&scope=snsapi_base&state=123#wechat_redirect";
+        cb02.setUrl(url2);
 
         cb0.setSub_button(new ViewButton[]{cb01,cb02});
 
@@ -256,7 +259,7 @@ public String processRequest(HttpServletRequest req) {
         cb23.setKey("reply_news");
 
         CommandButton cb24 = new CommandButton();
-        cb24.setName("回复链接");
+        cb24.setName("测试授权");
         cb24.setType("click");
         cb24.setKey("reply_link");
 

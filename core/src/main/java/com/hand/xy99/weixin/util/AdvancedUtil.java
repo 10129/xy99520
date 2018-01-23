@@ -14,6 +14,11 @@ import java.util.List;
  */
 public class AdvancedUtil {
     static Logger log = LoggerFactory.getLogger(AdvancedUtil.class);
+    // 获取网页授权地址
+    public final static String OAURH2_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+    // 获取用户授权地址
+    public final static  String USERINFO_URL = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+
     /**
      * 获取网页授权凭证
      *
@@ -25,7 +30,7 @@ public class AdvancedUtil {
     public static WeixinOauth2Token getOauth2AccessToken(String appId, String appSecret, String code) {
         WeixinOauth2Token wat = null;
         // 拼接请求地址
-        String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+        String requestUrl = OAURH2_URL;
         requestUrl = requestUrl.replace("APPID", appId);
         requestUrl = requestUrl.replace("SECRET", appSecret);
         requestUrl = requestUrl.replace("CODE", code);
@@ -59,7 +64,7 @@ public class AdvancedUtil {
     public static SNSUserInfo getSNSUserInfo(String accessToken, String openId) {
         SNSUserInfo snsUserInfo = null;
         // 拼接请求地址
-        String requestUrl = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID";
+        String requestUrl = USERINFO_URL;
         requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
         // 通过网页授权获取用户信息
         JSONObject jsonObject = com.hand.xy99.weiapi.util.CommonUtil.httpsRequest(requestUrl, "GET", null);
