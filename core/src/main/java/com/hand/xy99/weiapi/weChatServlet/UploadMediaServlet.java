@@ -2,14 +2,13 @@ package com.hand.xy99.weiapi.weChatServlet;
 /**
  * Created by xieshuai on 2018/1/16.
  */
-import com.hand.xy99.weiapi.util.CommonUtil;
-import com.hand.xy99.weiapi.util.MessageUtil;
-import com.hand.xy99.weiapi.util.ReqMessageUtil;
-import com.hand.xy99.weixin.message.req.TextMessage;
+import com.hand.xy99.weiapi.util.*;
+import com.hand.xy99.weixin.message.send.Text;
+import com.hand.xy99.weixin.message.send.TextMessage;
 import com.hand.xy99.weixin.pojo.AccessTokenInfo;
 import com.hand.xy99.weiapi.message.httpclient.WeixinAPIHelper;
-import com.hand.xy99.weiapi.util.UploadMediaApiUtil;
 import com.hand.xy99.weixin.pojo.UserInfo;
+import com.hand.xy99.weixin.service.SendMessageService;
 import com.hand.xy99.weixin.util.AdvancedUtil;
 
 import javax.servlet.ServletException;
@@ -48,16 +47,23 @@ public class UploadMediaServlet extends HttpServlet {
           WeixinAPIHelper weixinAPIHelper =new  WeixinAPIHelper();
 //        weixinAPIHelper.sendTextMessageToUser("早上好！","o5KdN1hbbeN2fhkWRroji0LOtqOM");
           TextMessage textMessage=new TextMessage();
-          textMessage.setContent("ssss");
-          textMessage.setToUserName("o5KdN1hbbeN2fhkWRroji0LOtqOM");
-          textMessage.setMsgType("text");
-          String xml=ReqMessageUtil.messageToXml(textMessage);
+        textMessage.setTouser("o5KdN1hbbeN2fhkWRroji0LOtqOM");
+//        textMessage.setSafe("");
+//        textMessage.setTotag("");
+        textMessage.setMsgtype("text");
+        Text text =new Text();
+        text.setContent("哈哈哈！");
+        textMessage.setText(text);
+//        textMessage.setAgentid();
+//        textMessage.setToparty("");
         String access_token = AccessTokenInfo.accessToken.getAccessToken();
-
+        SendMessageService sendMessageService =new SendMessageService();
         //获取请求路径
-
         String action = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="+access_token;
-
+//        weixinAPIHelper.sendTextMessageToUser("下午好！"+user.getNickname(),user.getOpenId());
+        //        sendMessageService.sendMessage(access_token,textMessage);
+//        SendMessageUtil sendMessageUtil =new SendMessageUtil();
+//        sendMessageUtil.sendTextMessage();
 //        weixinAPIHelper.connectWeiXinInterface(action,xml);
 //        weixinAPIHelper.sendNewsToUser("o5KdN1hbbeN2fhkWRroji0LOtqOM");
 //        weixinAPIHelper.sendPicOrVoiceMessageToUser("cuy8FdvowpQyKE5Q3XJYj4pxeagBb1L8Qs1GEz12qyar0iNHulufdqZ0CALZVzYj","o5KdN1hbbeN2fhkWRroji0LOtqOM",REQ_MESSAGE_TYPE_IMAGE);

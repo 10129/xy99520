@@ -32,13 +32,13 @@ public class SendMessageUtil {
             //1.创建文本消息对象
             TextMessage message=new TextMessage();
             //1.1非必需
-            message.setTouser("@all");  //不区分大小写
+            message.setTouser("o5KdN1hbbeN2fhkWRroji0LOtqOM");  //不区分大小写
             //textMessage.setToparty("1");
             //txtMsg.setTotag(totag);
             //txtMsg.setSafe(0);
             //1.2必需
             message.setMsgtype("text");
-            message.setAgentid(WeiXinParamesUtil.agentId);
+//            message.setAgentid(WeiXinParamesUtil.agentId);
 
             Text text=new Text();
             text.setContent(content);
@@ -55,7 +55,6 @@ public class SendMessageUtil {
         }
 
         //2.发送文本卡片消息
-        @Test
         public void testSendTextcardMessage(){
             //0.设置消息内容
             String title="代办事宜";
@@ -63,7 +62,6 @@ public class SendMessageUtil {
                     "恭喜你抽中iPhone 7一台，领奖码：xxxx</div><div class=\"highlight\">" +
                     "请于2017年10月10日前联系行政同事领取</div>";
             String url="http://www.cnblogs.com/shirui/p/7297872.html";
-
             //1.创建文本卡片消息对象
             TextcardMessage message=new TextcardMessage();
             //1.1非必需
@@ -71,17 +69,14 @@ public class SendMessageUtil {
             //message.setToparty("1");
             //message.setTotag(totag);
             //message.setSafe(0);
-
             //1.2必需
             message.setMsgtype("textcard");
-            message.setAgentid(WeiXinParamesUtil.agentId);
-
+//            message.setAgentid(WeiXinParamesUtil.agentId);
             Textcard textcard=new Textcard();
             textcard.setTitle(title);
             textcard.setDescription(description);
             textcard.setUrl(url);
             message.setTextcard(textcard);
-
             //2.获取access_token:根据企业id和通讯录密钥获取access_token,并拼接请求url
             String accessToken= WeiXinUtil.getAccessToken(WeiXinParamesUtil.corpId, WeiXinParamesUtil.agentSecret).getAccessToken();
             System.out.println("accessToken:"+accessToken);
@@ -103,28 +98,23 @@ public class SendMessageUtil {
             //textMessage.setToparty("1");
             //txtMsg.setTotag(totag);
             //txtMsg.setSafe(0);
-
             //1.2必需
             message.setMsgtype("image");
-            message.setAgentid(WeiXinParamesUtil.agentId);
+//            message.setAgentid(WeiXinParamesUtil.agentId);
 
             Media image=new Media();
             image.setMedia_id(media_id);
             message.setImage(image);
-
             //2.获取access_token:根据企业id和通讯录密钥获取access_token,并拼接请求url
             String accessToken= WeiXinUtil.getAccessToken(WeiXinParamesUtil.corpId, WeiXinParamesUtil.agentSecret).getAccessToken();
             System.out.println("accessToken:"+accessToken);
-
             //3.发送消息：调用业务类，发送消息
             SendMessageService sms=new SendMessageService();
             sms.sendMessage(accessToken, message);
-
         }
 
 
         //4.发送语音消息---无效的media_id
-        @Test
         public void testSendVoiceMessage(){
             //0.设置消息内容
             String media_id="MEDIA_ID";
@@ -135,15 +125,12 @@ public class SendMessageUtil {
             //textMessage.setToparty("1");
             //txtMsg.setTotag(totag);
             //txtMsg.setSafe(0);
-
             //1.2必需
             message.setMsgtype("image");
-            message.setAgentid(WeiXinParamesUtil.agentId);
-
+//            message.setAgentid(WeiXinParamesUtil.agentId);
             Media voice=new Media();
             voice.setMedia_id(media_id);
             message.setVoice(voice);
-
             //2.获取access_token:根据企业id和通讯录密钥获取access_token,并拼接请求url
             String accessToken= WeiXinUtil.getAccessToken(WeiXinParamesUtil.corpId, WeiXinParamesUtil.agentSecret).getAccessToken();
             System.out.println("accessToken:"+accessToken);
@@ -153,16 +140,12 @@ public class SendMessageUtil {
             sms.sendMessage(accessToken, message);
 
         }
-
         //5.发送视频消息
-        @Test
         public void testSendVideoMessage(){
             //0.设置消息内容
             String media_id="MEDIA_ID";
             String title="视频示例";
             String description="好看的视频";
-
-
             //1.创建视频消息对象
             VideoMessage message=new VideoMessage();
             //1.1非必需
@@ -170,25 +153,20 @@ public class SendMessageUtil {
             //message.setToparty("1");
             //message.setTotag(totag);
             //message.setSafe(0);
-
             //1.2必需
             message.setMsgtype("video");
-            message.setAgentid(WeiXinParamesUtil.agentId);
-
+//            message.setAgentid(WeiXinParamesUtil.agentId);
             Video video=new Video();
             video.setMedia_id(media_id);
             video.setTitle(title);
             video.setDescription(description);
             message.setVideo(video);
-
             //2.获取access_token:根据企业id和通讯录密钥获取access_token,并拼接请求url
             String accessToken= WeiXinUtil.getAccessToken(WeiXinParamesUtil.corpId, WeiXinParamesUtil.agentSecret).getAccessToken();
             System.out.println("accessToken:"+accessToken);
-
             //3.发送消息：调用业务类，发送消息
             SendMessageService sms=new SendMessageService();
             sms.sendMessage(accessToken, message);
-
         }
 
         //6.发送文件消息
@@ -203,11 +181,9 @@ public class SendMessageUtil {
             //textMessage.setToparty("1");
             //txtMsg.setTotag(totag);
             //txtMsg.setSafe(0);
-
             //1.2必需
             message.setMsgtype("file");
-            message.setAgentid(WeiXinParamesUtil.agentId);
-
+//            message.setAgentid(WeiXinParamesUtil.agentId);
             Media file=new Media();
             file.setMedia_id(media_id);
             message.setFile(file);
@@ -223,7 +199,6 @@ public class SendMessageUtil {
         }
 
         //7.发送图文消息
-        
         public void testSendNewsMessage(){
             //1.创建图文消息对象
             NewsMessage message=new NewsMessage();
@@ -234,7 +209,7 @@ public class SendMessageUtil {
             //txtMsg.setSafe(0);
             //1.2必需
             message.setMsgtype("news");
-            message.setAgentid(WeiXinParamesUtil.agentId);
+//            message.setAgentid(WeiXinParamesUtil.agentId);
             //设置图文消息
             Article article1=new  Article();
             article1.setTitle("青年文摘");
@@ -253,7 +228,6 @@ public class SendMessageUtil {
             //3.发送消息：调用业务类，发送消息
             SendMessageService sms=new SendMessageService();
             sms.sendMessage(accessToken, message);
-
         }
 
 

@@ -37,7 +37,7 @@ public class SendMessageService {
 		//3.调用接口，发送消息
 		JSONObject jsonObject = WeiXinUtil.httpRequest(sendMessage_url, "POST", jsonMessage);
 		System.out.println("jsonObject:"+jsonObject.toString());
-
+		System.out.println("ACCESS_TOKEN"+ accessToken);
 		//4.错误消息处理
 		if (null != jsonObject) {  
 			if (0 != jsonObject.getInt("errcode")) {  

@@ -1,10 +1,14 @@
 package com.hand.xy99.weiapi.message.httpclient;
 
+import com.google.gson.Gson;
+import com.hand.xy99.weiapi.test.WeiXinUtil;
 import com.hand.xy99.weiapi.util.CommonUtil;
 import com.hand.xy99.weixin.message.resp.TextMessage;
+import com.hand.xy99.weixin.message.send.BaseMessage;
 import com.hand.xy99.weixin.pojo.AccessTokenInfo;
 import com.hand.xy99.weiapi.util.MessageUtil;
 import com.hand.xy99.weiapi.weChatServlet.AccessTokenServlet;
+import net.sf.json.JSONObject;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -19,16 +23,38 @@ import static com.hand.xy99.weiapi.util.MessageUtil.REQ_MESSAGE_TYPE_VOICE;
  * Created by hand on 2018/1/20.
  */
 public class WeixinAPIHelper {
+
     /**
+     * @desc ：0.公共方法：发送消息
+     * @param message void
+     */
+    public void sendMessage(BaseMessage message){
 
+        //1.获取json字符串：将message对象转换为json字符串
+        Gson gson = new Gson();
+        String json =gson.toJson(message);      //使用gson.toJson(user)即可将user对象顺序转成json
+        System.out.println("jsonTextMessage:"+json);
+
+        //获取accessToken
+        String accessToken =AccessTokenServlet.getAccessToken(CommonUtil.APPID, CommonUtil.APP_SECRET).getAccessToken();
+        //获取请求路径
+        String action = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="+accessToken;
+        System.out.println("json:"+json);
+        try {
+            connectWeiXinInterface(action,json);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+    /**
      * 微信公共账号发送给账号
-
      * @param content 文本内容
-
      * @param toUser 微信用户
-
      * @return
-
      */
 
     public  void sendTextMessageToUser(String content,String toUser){
