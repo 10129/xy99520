@@ -57,9 +57,11 @@ public class AccessTokenServlet extends HttpServlet {
                             Boolean bl=createMenu(menu,  token);
                             logger.info("成功创建菜单！");
                             //获取到access_token 休眠7000秒,大约2个小时左右
+                            System.out.println("-----获取到access_token 休眠7000秒,大约2个小时左右-----");
                             Thread.sleep(7000 * 1000);
                         } else {
                             //获取失败
+                            System.out.println("-----获取到access_token失败 休眠2秒左右-----");
                             Thread.sleep(1000 * 3); //获取的access_token为空 休眠3秒
                         }
                     } catch (Exception e) {
