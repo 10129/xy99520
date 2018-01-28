@@ -28,9 +28,9 @@ import org.slf4j.LoggerFactory;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
-public class WeiXinUtil {
+public class MenuUtil {
 
-    private static Logger log = LoggerFactory.getLogger(WeiXinUtil.class);
+    private static Logger log = LoggerFactory.getLogger(MenuUtil.class);
     //微信的请求url
     //获取access_token的接口地址（GET） 限200（次/天）
     public final static String access_token_url = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={corpId}&corpsecret={corpsecret}";
@@ -296,60 +296,60 @@ public class WeiXinUtil {
         }
         return buffer.toString();
     }
-
-
-    /**
-     * 3.获取access_token
-     *
-     * @param appid 凭证
-     * @param appsecret 密钥
-     * @return
-     */
-    public static Token getAccessToken(String appid, String appsecret) {
-        Token accessToken = null;
-
-        String requestUrl = access_token_url.replace("{corpId}", appid).replace("{corpsecret}", appsecret);
-        JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
-        // 如果请求成功
-        if (null != jsonObject) {
-            try {
-                accessToken = new Token();
-                accessToken.setAccessToken(jsonObject.getString("access_token"));
-                accessToken.setExpiresIn(jsonObject.getInt("expires_in"));
-            } catch (JSONException e) {
-                accessToken = null;
-                // 获取token失败
-                log.error("获取token失败 errcode:{} errmsg:{}", jsonObject.getInt("errcode"), jsonObject.getString("errmsg"));
-            }
-        }
-        return accessToken;
-    }
-
-    /**
-     * 4. 获取JsapiTicket
-     * @param accessToken
-     * @return
-     */
-    public static String getJsapiTicket(String accessToken){
-
-
-        String requestUrl = jsapi_ticket_url.replace("ACCESSTOKEN", accessToken);
-        JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
-
-        String  jsapi_ticket="";
-        // 如果请求成功
-        if (null != jsonObject) {
-            try {
-                jsapi_ticket=jsonObject.getString("ticket");
-
-            } catch (JSONException e) {
-
-                // 获取token失败
-                log.error("获取token失败 errcode:{} errmsg:{}", jsonObject.getInt("errcode"), jsonObject.getString("errmsg"));
-            }
-        }
-        return jsapi_ticket;
-    }
+//
+//
+//    /**
+//     * 3.获取access_token
+//     *
+//     * @param appid 凭证
+//     * @param appsecret 密钥
+//     * @return
+//     */
+//    public static Token getAccessToken(String appid, String appsecret) {
+//        Token accessToken = null;
+//
+//        String requestUrl = access_token_url.replace("{corpId}", appid).replace("{corpsecret}", appsecret);
+//        JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
+//        // 如果请求成功
+//        if (null != jsonObject) {
+//            try {
+//                accessToken = new Token();
+//                accessToken.setAccessToken(jsonObject.getString("access_token"));
+//                accessToken.setExpiresIn(jsonObject.getInt("expires_in"));
+//            } catch (JSONException e) {
+//                accessToken = null;
+//                // 获取token失败
+//                log.error("获取token失败 errcode:{} errmsg:{}", jsonObject.getInt("errcode"), jsonObject.getString("errmsg"));
+//            }
+//        }
+//        return accessToken;
+//    }
+//
+//    /**
+//     * 4. 获取JsapiTicket
+//     * @param accessToken
+//     * @return
+//     */
+//    public static String getJsapiTicket(String accessToken){
+//
+//
+//        String requestUrl = jsapi_ticket_url.replace("ACCESSTOKEN", accessToken);
+//        JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
+//
+//        String  jsapi_ticket="";
+//        // 如果请求成功
+//        if (null != jsonObject) {
+//            try {
+//                jsapi_ticket=jsonObject.getString("ticket");
+//
+//            } catch (JSONException e) {
+//
+//                // 获取token失败
+//                log.error("获取token失败 errcode:{} errmsg:{}", jsonObject.getInt("errcode"), jsonObject.getString("errmsg"));
+//            }
+//        }
+//        return jsapi_ticket;
+//    }
     private static String getExt(String contentType){
         if("image/jpeg".equals(contentType)){
             return ".jpg";

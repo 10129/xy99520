@@ -1,6 +1,6 @@
 package com.hand.xy99.weixin.service.impl;
 
-import com.hand.xy99.weixin.test.WeiXinUtil;
+import com.hand.xy99.weixin.test.MenuUtil;
 import net.sf.json.JSONObject;
 
 import java.io.File;
@@ -36,7 +36,7 @@ public class TempMaterialService {
 				.replace("TYPE", type);
 
 		//3.调用接口，发送请求，上传文件到微信服务器
-		String result= WeiXinUtil.httpRequest(uploadTempMaterial_url, file);
+		String result= MenuUtil.httpRequest(uploadTempMaterial_url, file);
 
 		//4.json字符串转对象：解析返回值，json反序列化
 		result = result.replaceAll("[\\\\]", "");
@@ -75,7 +75,7 @@ public class TempMaterialService {
 		//2.调用接口，发送请求，获取临时素材
 		File file=null;
 		try {
-			file = WeiXinUtil.getFile(getTempMaterial_url,savePath);
+			file = MenuUtil.getFile(getTempMaterial_url,savePath);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

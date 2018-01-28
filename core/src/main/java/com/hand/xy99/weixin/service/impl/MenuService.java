@@ -2,7 +2,7 @@ package com.hand.xy99.weixin.service.impl;
 
 
 import com.google.gson.Gson;
-import com.hand.xy99.weixin.test.WeiXinUtil;
+import com.hand.xy99.weixin.test.MenuUtil;
 import com.hand.xy99.weixin.pojo.message.menu.*;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -34,7 +34,7 @@ public class MenuService {
 				.replace("AGENTID", String.valueOf(agentId));  
 
 		//3.调用接口,发送请求，创建菜单  
-		JSONObject jsonObject = WeiXinUtil.httpRequest(create_menu_url, "POST", jsonMenu);
+		JSONObject jsonObject = MenuUtil.httpRequest(create_menu_url, "POST", jsonMenu);
 		System.out.println("jsonObject:"+jsonObject.toString());
 
 		//4.错误消息处理
@@ -75,15 +75,12 @@ public class MenuService {
 		ViewButton btn23 = new ViewButton();  
 		btn23.setName("移动端网页授权");  
 		btn23.setType("view");  
-		btn23.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww92f5da92bb24696e&redirect_uri=http%3A%2F%2Fzvuntx.natappfree.cc%2FWeiXin_QiYe_Demo%2FMTAuthorization.jsp&response_type=code&scope=snsapi_privateinfo&agentid=1000002&state=hec#wechat_redirect");  
-
+		btn23.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=ww92f5da92bb24696e&redirect_uri=http%3A%2F%2Fzvuntx.natappfree.cc%2FWeiXin_QiYe_Demo%2FMTAuthorization.jsp&response_type=code&scope=snsapi_privateinfo&agentid=1000002&state=hec#wechat_redirect");
 		
 		CommandButton btn12 = new CommandButton();
 		btn12.setName("扫一扫");
 		btn12.setType("click");
 		btn12.setKey("12");
-
-
 
 		CommandButton btn13 = new CommandButton();
 		btn13.setName("翻译功能");
@@ -95,19 +92,10 @@ public class MenuService {
 		btn14.setType("view");  
 		btn14.setUrl("http://5nffqn.natappfree.cc/WeiXin_SanFenBaiXue/uploadimg.jsp");  
 
-
-
 		ViewButton btn15 = new ViewButton();  
 		btn15.setName("上传图片2");  
 		btn15.setType("view");  
 		btn15.setUrl("http://5nffqn.natappfree.cc/WeiXin_SanFenBaiXue/index2.jsp");  
-
-	
-	
-
-		
-
-		
 
 		CommandButton btn24 = new CommandButton();
 		btn24.setName("人脸识别");

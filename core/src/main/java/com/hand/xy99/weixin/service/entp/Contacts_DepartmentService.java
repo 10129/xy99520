@@ -1,12 +1,5 @@
 package com.hand.xy99.weixin.service.entp;
 
-import com.google.gson.Gson;
-import com.hand.xy99.weixin.test.WeiXinUtil;
-import com.hand.xy99.weixin.pojo.message.Department;
-import net.sf.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class Contacts_DepartmentService {
 //	private static Logger log = LoggerFactory.getLogger(Contacts_DepartmentService.class);
 //
@@ -27,7 +20,7 @@ public class Contacts_DepartmentService {
 //		createDepartment_url=createDepartment_url.replace("ACCESS_TOKEN", accessToken);
 //
 //		//3.调用接口，发送请求，创建部门
-//		JSONObject jsonObject = WeiXinUtil.httpRequest(createDepartment_url, "POST", jsonDepartment);
+//		JSONObject jsonObject = MenuUtil.httpRequest(createDepartment_url, "POST", jsonDepartment);
 //		System.out.println("jsonObject:"+jsonObject.toString());
 //		if (null != jsonObject) {
 //			if (0 != jsonObject.getInt("errcode")) {
@@ -48,7 +41,7 @@ public class Contacts_DepartmentService {
 //		updateDepartment_url=updateDepartment_url.replace("ACCESS_TOKEN", accessToken);
 //
 //		//3.调用接口，发送请求，更新部门
-//		JSONObject jsonObject = WeiXinUtil.httpRequest(updateDepartment_url, "POST", jsonDepartment);
+//		JSONObject jsonObject = MenuUtil.httpRequest(updateDepartment_url, "POST", jsonDepartment);
 //		System.out.println("jsonObject:"+jsonObject.toString());
 //		if (null != jsonObject) {
 //			if (0 != jsonObject.getInt("errcode")) {
@@ -67,7 +60,7 @@ public class Contacts_DepartmentService {
 //				.replace("ID", departmentId);
 //
 //		//2.调用接口，发送请求，删除部门
-//		JSONObject jsonObject = WeiXinUtil.httpRequest(deleteDepartment_url, "GET", null);
+//		JSONObject jsonObject = MenuUtil.httpRequest(deleteDepartment_url, "GET", null);
 //		System.out.println("jsonObject:"+jsonObject.toString());
 //
 //		//3.错误消息处理
@@ -88,7 +81,7 @@ public class Contacts_DepartmentService {
 //				.replace("ID", departmentId);
 //
 //		//2.调用接口，发送请求，获取成员
-//		JSONObject jsonObject = WeiXinUtil.httpRequest(getDepartmentList_url, "GET", null);
+//		JSONObject jsonObject = MenuUtil.httpRequest(getDepartmentList_url, "GET", null);
 //		System.out.println("jsonObject:"+jsonObject.toString());
 //
 //		//3.错误消息处理

@@ -1,16 +1,5 @@
 package com.hand.xy99.weixin.service.entp;
 
-import com.google.gson.Gson;
-import com.hand.xy99.weixin.test.WeiXinUtil;
-import com.hand.xy99.weixin.pojo.message.User;
-import net.sf.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Contacts_UserService {
 //	private static Logger log = LoggerFactory.getLogger(Contacts_UserService.class);
 //
@@ -36,7 +25,7 @@ public class Contacts_UserService {
 //		createUser_url=createUser_url.replace("ACCESS_TOKEN", accessToken);
 //
 //		//3.调用接口，发送请求，创建成员
-//		JSONObject jsonObject = WeiXinUtil.httpRequest(createUser_url, "POST", jsonU1);
+//		JSONObject jsonObject = MenuUtil.httpRequest(createUser_url, "POST", jsonU1);
 //		System.out.println("jsonObject:"+jsonObject.toString());
 //
 //		//4.错误消息处理
@@ -55,7 +44,7 @@ public class Contacts_UserService {
 //				.replace("USERID", userId);
 //
 //		//2.调用接口，发送请求，获取成员
-//		JSONObject jsonObject = WeiXinUtil.httpRequest(getUser_url, "GET", null);
+//		JSONObject jsonObject = MenuUtil.httpRequest(getUser_url, "GET", null);
 //		System.out.println("jsonObject:"+jsonObject.toString());
 //
 //		//3.错误消息处理
@@ -79,7 +68,7 @@ public class Contacts_UserService {
 //		updateUser_url=updateUser_url.replace("ACCESS_TOKEN", accessToken);
 //
 //		//3.调用接口，发送请求，创建成员
-//		JSONObject jsonObject = WeiXinUtil.httpRequest(updateUser_url, "POST", jsonU1);
+//		JSONObject jsonObject = MenuUtil.httpRequest(updateUser_url, "POST", jsonU1);
 //		System.out.println("jsonObject:"+jsonObject.toString());
 //
 //		//4.错误消息处理
@@ -98,7 +87,7 @@ public class Contacts_UserService {
 //				.replace("USERID", userId);
 //
 //		//2.调用接口，发送请求，删除成员
-//		JSONObject jsonObject = WeiXinUtil.httpRequest(deleteUser_url, "GET", null);
+//		JSONObject jsonObject = MenuUtil.httpRequest(deleteUser_url, "GET", null);
 //		System.out.println("jsonObject:"+jsonObject.toString());
 //
 //		//3.错误消息处理
@@ -123,7 +112,7 @@ public class Contacts_UserService {
 //		batchdeleteUser_url=batchdeleteUser_url.replace("ACCESS_TOKEN", accessToken);
 //
 //		//3.调用接口，发送请求，创建成员
-//		JSONObject jsonObject = WeiXinUtil.httpRequest(batchdeleteUser_url, "POST", useridlist);
+//		JSONObject jsonObject = MenuUtil.httpRequest(batchdeleteUser_url, "POST", useridlist);
 //		System.out.println("jsonObject:"+jsonObject.toString());
 //
 //		//4.错误消息处理
@@ -144,7 +133,7 @@ public class Contacts_UserService {
 //				.replace("FETCH_CHILD", fetchChild);
 //
 //		//2.调用接口，发送请求，获取部门成员
-//		JSONObject jsonObject = WeiXinUtil.httpRequest(getDepartmentUser_url, "GET", null);
+//		JSONObject jsonObject = MenuUtil.httpRequest(getDepartmentUser_url, "GET", null);
 //		System.out.println("jsonObject:"+jsonObject.toString());
 //
 //		//3.错误消息处理
@@ -164,7 +153,7 @@ public class Contacts_UserService {
 //				.replace("FETCH_CHILD", fetchChild);
 //
 //		//2.调用接口，发送请求，获取部门成员
-//		JSONObject jsonObject = WeiXinUtil.httpRequest(getDepartmentUserDetails_url, "GET", null);
+//		JSONObject jsonObject = MenuUtil.httpRequest(getDepartmentUserDetails_url, "GET", null);
 //		System.out.println("jsonObject:"+jsonObject.toString());
 //
 //		//3.错误消息处理
