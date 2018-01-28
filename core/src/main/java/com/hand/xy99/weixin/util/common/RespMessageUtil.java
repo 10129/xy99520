@@ -1,4 +1,4 @@
-package com.hand.xy99.weixin.util;
+package com.hand.xy99.weixin.util.common;
 /**
  * Created by hand on 2018/1/21.
  */
@@ -28,13 +28,13 @@ import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 
 /**
- * 类名: MessageUtil </br>
+ * 类名: RespMessageUtil </br>
  * 描述: 消息处理工具类</br>
  * 开发人员： hand.xy99 </br>
  * 创建时间：  2015-9-30 </br>
  * 发布版本：V1.0  </br>
  */
-public class MessageUtil {
+public class RespMessageUtil {
     // 请求消息类型：文本
     public static final String REQ_MESSAGE_TYPE_TEXT = "text";
     // 请求消息类型：图片

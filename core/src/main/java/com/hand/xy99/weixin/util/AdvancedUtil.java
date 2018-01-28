@@ -28,7 +28,6 @@ public class AdvancedUtil {
 
     /**
      * 获取网页授权凭证
-     *
      * @param appId 公众账号的唯一标识
      * @param appSecret 公众账号的密钥
      * @param code

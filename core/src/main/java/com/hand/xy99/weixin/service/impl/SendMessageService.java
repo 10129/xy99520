@@ -1,6 +1,6 @@
 package com.hand.xy99.weixin.service.impl;
 
-import com.hand.xy99.weixin.util.WeixinAPIHelper;
+import com.hand.xy99.weixin.util.common.SendMessageUtil;
 import com.hand.xy99.weixin.pojo.message.send.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,14 +20,14 @@ public class SendMessageService {
      * @return
      */
     public  void sendTextMessageToUser(String content,String toUser){
-		WeixinAPIHelper weixinAPIHelper =new  WeixinAPIHelper();
+		SendMessageUtil sendMessageUtil =new SendMessageUtil();
 		TextMessage textMessage=new TextMessage();
 		textMessage.setTouser(toUser);
 		textMessage.setMsgtype("text");
 		Text text =new Text();
 		text.setContent(content);
 		textMessage.setText(text);
-		weixinAPIHelper.sendMessage(textMessage);
+		sendMessageUtil.sendMessage(textMessage);
     }
     /**
      * 微信公共账号发送给账号(本方法限制使用的消息类型是语音或者图片)
@@ -36,7 +36,7 @@ public class SendMessageService {
      * @return
      */
     public  void sendPicOrVoiceMessageToUser(String mediaId,String toUser,String msgType){
-		WeixinAPIHelper weixinAPIHelper =new  WeixinAPIHelper();
+		SendMessageUtil sendMessageUtil =new SendMessageUtil();
 		Media media=new Media();
 		media.setMedia_id(mediaId);
 		if("voice".equals(msgType)){
@@ -44,13 +44,13 @@ public class SendMessageService {
 			voiceMessage.setTouser(toUser);
 			voiceMessage.setMsgtype(msgType);
 			voiceMessage.setVoice(media);
-			weixinAPIHelper.sendMessage(voiceMessage);
+			sendMessageUtil.sendMessage(voiceMessage);
 		}else {
 			ImgMessage imgMessage=new ImgMessage();
 			imgMessage.setTouser(toUser);
 			imgMessage.setMsgtype(msgType);
 			imgMessage.setImage(media);
-			weixinAPIHelper.sendMessage(imgMessage);
+			sendMessageUtil.sendMessage(imgMessage);
 		}
     }
     /**
@@ -58,7 +58,7 @@ public class SendMessageService {
      * @param openId 用户的id
      */
     public  void sendNewsToUser(String openId){
-		WeixinAPIHelper weixinAPIHelper =new  WeixinAPIHelper();
+		SendMessageUtil sendMessageUtil =new SendMessageUtil();
 		NewsMessage newsMessage=new NewsMessage();
 		newsMessage.setTouser(openId);
 		newsMessage.setMsgtype("news");
@@ -87,7 +87,7 @@ public class SendMessageService {
 		list.add(article2);
 		news.setArticles(list);
 		newsMessage.setNews(news);
-		weixinAPIHelper.sendMessage(newsMessage);
+		sendMessageUtil.sendMessage(newsMessage);
     }
 
 	//2.发送文本卡片消息
@@ -109,8 +109,8 @@ public class SendMessageService {
 		textcard.setDescription(description);
 		textcard.setUrl(url);
 		message.setTextcard(textcard);
-		WeixinAPIHelper weixinAPIHelper =new  WeixinAPIHelper();
-		weixinAPIHelper.sendMessage(message);
+		SendMessageUtil sendMessageUtil =new SendMessageUtil();
+		sendMessageUtil.sendMessage(message);
 	}
 	//5.发送视频消息
 	public void sendVideoMessage(String media_id,String toUser){
@@ -126,8 +126,8 @@ public class SendMessageService {
 		video.setTitle(title);
 		video.setDescription(description);
 		message.setVideo(video);
-		WeixinAPIHelper weixinAPIHelper =new  WeixinAPIHelper();
-		weixinAPIHelper.sendMessage(message);
+		SendMessageUtil sendMessageUtil =new SendMessageUtil();
+		sendMessageUtil.sendMessage(message);
 	}
 	//6.发送文件消息
 	public void testSendFileMessage(String media_id,String toUser){
@@ -140,8 +140,8 @@ public class SendMessageService {
 		Media file=new Media();
 		file.setMedia_id(media_id);
 		message.setFile(file);
-		WeixinAPIHelper weixinAPIHelper =new  WeixinAPIHelper();
-		weixinAPIHelper.sendMessage(message);
+		SendMessageUtil sendMessageUtil =new SendMessageUtil();
+		sendMessageUtil.sendMessage(message);
 	}
 	
 }

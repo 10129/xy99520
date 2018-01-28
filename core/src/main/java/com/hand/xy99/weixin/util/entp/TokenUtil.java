@@ -1,4 +1,4 @@
-package com.hand.xy99.weixin.util;
+package com.hand.xy99.weixin.util.entp;
 
 /**
  * Created by hand on 2018/1/21.

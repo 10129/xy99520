@@ -5,7 +5,7 @@ import com.hand.xy99.weixin.pojo.message.menu.ComplexButton;
 import com.hand.xy99.weixin.pojo.message.menu.Menu;
 import com.hand.xy99.weixin.pojo.message.menu.ViewButton;
 import com.hand.xy99.weixin.service.IWeixinService;
-import com.hand.xy99.weixin.util.MessageUtil;
+import com.hand.xy99.weixin.util.common.RespMessageUtil;
 import com.hand.xy99.weixin.pojo.message.resp.*;
 import com.hand.xy99.weixin.pojo.Token;
 import net.sf.json.JSONObject;
@@ -31,14 +31,14 @@ public String processRequest(HttpServletRequest req) {
         // 解析微信传递的参数
         String str = null;
         try {
-            Map<String,String> xmlMap = MessageUtil.parseXml(req);
+            Map<String,String> xmlMap = RespMessageUtil.parseXml(req);
             str = "请求处理异常，请稍后再试！";
 
             String ToUserName = xmlMap.get("ToUserName");
             String FromUserName = xmlMap.get("FromUserName");
             String MsgType = xmlMap.get("MsgType");
 
-            if (MsgType.equals(MessageUtil.RESP_MESSAGE_TYPE_TEXT)) {
+            if (MsgType.equals(RespMessageUtil.RESP_MESSAGE_TYPE_TEXT)) {
                 // 用户发送的文本消息
                 String content = xmlMap.get("Content");
                 log.info("用户：[" + FromUserName + "]发送的文本消息：" + content);
@@ -48,16 +48,16 @@ public String processRequest(HttpServletRequest req) {
                     TextMessage tm = new TextMessage();
                     tm.setToUserName(FromUserName);
                     tm.setFromUserName(ToUserName);
-                    tm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+                    tm.setMsgType(RespMessageUtil.RESP_MESSAGE_TYPE_TEXT);
                     tm.setCreateTime(System.currentTimeMillis());
                     tm.setContent("我的CSDN博客：<a href=\"http://my.csdn.net/qincidong\">我的CSDN博客</a>\n");
-                    return MessageUtil.messageToXml(tm);
+                    return RespMessageUtil.messageToXml(tm);
                 }
                 else if (content.contains("1")) { // 点击了回复音乐
                     MusicMessage mm =  new MusicMessage();
                     mm.setFromUserName(ToUserName);
                     mm.setToUserName(FromUserName);
-                    mm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_MUSIC);
+                    mm.setMsgType(RespMessageUtil.RESP_MESSAGE_TYPE_MUSIC);
                     mm.setCreateTime(System.currentTimeMillis());
                     Music music = new Music();
                     music.setTitle("Maid with the Flaxen Hair");
@@ -66,7 +66,7 @@ public String processRequest(HttpServletRequest req) {
                     music.setHQMusicUrl("http://yinyueshiting.baidu.com/data2/music/123297915/1201250291415073661128.mp3?xcode=e2edf18bbe9e452655284217cdb920a7a6a03c85c06f4409");
                     mm.setMusic(music);
 
-                    String musicXml = MessageUtil.messageToXml(mm);
+                    String musicXml = RespMessageUtil.messageToXml(mm);
                     log.info("musicXml:\n" + musicXml);
                     return musicXml;
                 }
@@ -74,7 +74,7 @@ public String processRequest(HttpServletRequest req) {
                     NewsMessage im = new NewsMessage();
                     im.setToUserName(FromUserName);
                     im.setFromUserName(ToUserName);
-                    im.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
+                    im.setMsgType(RespMessageUtil.RESP_MESSAGE_TYPE_NEWS);
                     im.setCreateTime(System.currentTimeMillis());
                     Article item1 =new Article();
                     String title1 = "HAP审计的实现和使用";
@@ -99,73 +99,73 @@ public String processRequest(HttpServletRequest req) {
                     itemList.add(item2);
                     im.setArticles(itemList);
                     im.setArticleCount(2);
-                    return MessageUtil.messageToXml(im);
+                    return RespMessageUtil.messageToXml(im);
                 }
 
                 // 响应
                 TextMessage tm = new TextMessage();
                 tm.setToUserName(FromUserName);
                 tm.setFromUserName(ToUserName);
-                tm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+                tm.setMsgType(RespMessageUtil.RESP_MESSAGE_TYPE_TEXT);
                 tm.setCreateTime(System.currentTimeMillis());
                 tm.setContent("你好，你发送的内容是：\n" + content);
 
-                String xml = MessageUtil.messageToXml(tm);
+                String xml = RespMessageUtil.messageToXml(tm);
                 log.info("xml:" + xml);
                 return xml;
             }
-            else if (MsgType.equals(MessageUtil.REQ_MESSAGE_TYPE_VIDEO)) {
+            else if (MsgType.equals(RespMessageUtil.REQ_MESSAGE_TYPE_VIDEO)) {
 //                System.out.print(xmlMap.get("MediaId"));
 //                TextMessage tm = new TextMessage();
 //                tm.setToUserName(FromUserName);
 //                tm.setFromUserName(ToUserName);
-//                tm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+//                tm.setMsgType(RespMessageUtil.RESP_MESSAGE_TYPE_TEXT);
 //                tm.setCreateTime(System.currentTimeMillis());
 //                tm.setContent("你好，你发送的内容是：\n" + "视频"+xmlMap.get("MediaId"));
 //
-//                String xml = MessageUtil.textMessageToXml(tm);
+//                String xml = RespMessageUtil.textMessageToXml(tm);
 //                log.info("xml:" + xml);
 //                return xml;
                 VideoMessage im = new VideoMessage();
                 im.setToUserName(FromUserName);
                 im.setFromUserName(ToUserName);
-                im.setMsgType(MessageUtil.REQ_MESSAGE_TYPE_VIDEO);
+                im.setMsgType(RespMessageUtil.REQ_MESSAGE_TYPE_VIDEO);
                 im.setCreateTime(System.currentTimeMillis());
                 Video video = new Video();
                 video.setMediaId("XZGjf-nyUEOZ2e59bo1GEcS21GrU6u0MJtrDIYyuwugsUPoHWsTSpYZmnR5Fbusj");
 //                video.setTitle("hahah");
 //                video.setDescription("还给你一个视频");
                 im.setVideo(video);
-                String xml = MessageUtil.messageToXml(im);
+                String xml = RespMessageUtil.messageToXml(im);
                 return xml;
             }
-            else if (MsgType.equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
+            else if (MsgType.equals(RespMessageUtil.REQ_MESSAGE_TYPE_EVENT)) {
                 String event = xmlMap.get("Event");
-                if (event.equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) {
+                if (event.equals(RespMessageUtil.EVENT_TYPE_SUBSCRIBE)) {
                     // 订阅
                     TextMessage tm = new TextMessage();
                     tm.setToUserName(FromUserName);
                     tm.setFromUserName(ToUserName);
-                    tm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+                    tm.setMsgType(RespMessageUtil.RESP_MESSAGE_TYPE_TEXT);
                     tm.setCreateTime(System.currentTimeMillis());
                     tm.setContent("你好，欢迎关注[程序员的生活]公众号！[愉快]/呲牙/玫瑰\n目前可以回复文本消息");
-                    return MessageUtil.messageToXml(tm);
+                    return RespMessageUtil.messageToXml(tm);
                 }
-                else if (event.equals(MessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
+                else if (event.equals(RespMessageUtil.EVENT_TYPE_UNSUBSCRIBE)) {
                     // 取消订阅
                     log.info("用户【" + FromUserName + "]取消关注了。");
                 }
-                else if (event.equals(MessageUtil.EVENT_TYPE_CLICK)) {
+                else if (event.equals(RespMessageUtil.EVENT_TYPE_CLICK)) {
                     String eventKey = xmlMap.get("EventKey");
                     if (eventKey.equals("reply_words")) { // 点击了回复文字菜单
                         TextMessage tm = new TextMessage();
                         tm.setToUserName(FromUserName);
                         tm.setFromUserName(ToUserName);
-                        tm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+                        tm.setMsgType(RespMessageUtil.RESP_MESSAGE_TYPE_TEXT);
                         tm.setCreateTime(System.currentTimeMillis());
                         tm.setContent("你好，你点击了回复文本菜单：测试测试\n");
 
-                        String xml = MessageUtil.messageToXml(tm);
+                        String xml = RespMessageUtil.messageToXml(tm);
                         log.info("xml:" + xml);
                         return xml;
 
@@ -173,7 +173,7 @@ public String processRequest(HttpServletRequest req) {
                         MusicMessage mm =  new MusicMessage();
                         mm.setFromUserName(ToUserName);
                         mm.setToUserName(FromUserName);
-                        mm.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_MUSIC);
+                        mm.setMsgType(RespMessageUtil.RESP_MESSAGE_TYPE_MUSIC);
                         mm.setCreateTime(System.currentTimeMillis());
                         Music music = new Music();
                         music.setTitle("Maid with the Flaxen Hair");
@@ -182,7 +182,7 @@ public String processRequest(HttpServletRequest req) {
                         music.setHQMusicUrl("http://yinyueshiting.baidu.com/data2/music/123297915/1201250291415073661128.mp3?xcode=e2edf18bbe9e452655284217cdb920a7a6a03c85c06f4409");
                         mm.setMusic(music);
 
-                        String musicXml = MessageUtil.messageToXml(mm);
+                        String musicXml = RespMessageUtil.messageToXml(mm);
                         log.info("musicXml:\n" + musicXml);
                         return musicXml;
                     }
