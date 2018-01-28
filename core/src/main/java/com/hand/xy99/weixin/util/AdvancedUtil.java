@@ -4,12 +4,12 @@ import com.hand.xy99.weixin.pojo.AccessTokenInfo;
 import com.hand.xy99.weixin.pojo.SNSUserInfo;
 import com.hand.xy99.weixin.pojo.UserInfo;
 import com.hand.xy99.weixin.pojo.WeixinOauth2Token;
+import com.hand.xy99.weixin.util.common.CommonUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.apache.commons.httpclient.HttpException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,7 +74,7 @@ public class AdvancedUtil {
         String requestUrl = USERINFO_URL;
         requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
         // 通过网页授权获取用户信息
-        JSONObject jsonObject = com.hand.xy99.weiapi.util.CommonUtil.httpsRequest(requestUrl, "GET", null);
+        JSONObject jsonObject = CommonUtil.httpsRequest(requestUrl, "GET", null);
 
         if (null != jsonObject) {
             try {

@@ -23,6 +23,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.servlet.http.HttpServletRequest;
 
+import com.hand.xy99.weixin.util.common.MyX509TrustManager;
 import net.sf.json.JSONObject;
 
 public class WeixinUtil {

@@ -7,12 +7,10 @@ package com.hand.xy99.weixin.test;
 import java.util.Arrays;
 import java.util.List;
 
-import com.hand.xy99.weixin.service.Contacts_UserService;
-import com.hand.xy99.weiapi.util.WeiXinParamesUtil;
-import com.hand.xy99.weixin.message.User;
+import com.hand.xy99.weixin.service.impl.Contacts_UserService;
+import com.hand.xy99.weixin.util.WeiXinParamesUtil;
+import com.hand.xy99.weixin.pojo.message.User;
 import org.junit.Test;
-
-import com.hand.xy99.weiapi.test.WeiXinUtil;
 
 /**
  * 成员管理
