@@ -76,12 +76,7 @@
       <artifactId>dom4j</artifactId>
       <version>1.6.1</version>
     </dependency>
-    <!-- slf4j-api -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.25</version>
-    </dependency>
+
     <!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
     <dependency>
       <groupId>com.thoughtworks.xstream</groupId>
@@ -119,21 +114,6 @@
           <artifactId>spring-test</artifactId>
           <version>4.2.5.RELEASE</version>
       </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.2.5.RELEASE</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.2.5.RELEASE</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-test</artifactId>
-      <version>4.2.5.RELEASE</version>
-    </dependency>
       <dependency>
           <groupId>org.springframework</groupId>
           <artifactId>spring-webmvc</artifactId>
@@ -150,9 +130,84 @@
       <artifactId>jstl</artifactId>
       <version>1.1.2</version>
     </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.apache.ibatis</groupId>-->
+      <!--<artifactId>ibatis-core</artifactId>-->
+      <!--<version>3.0</version>-->
+    <!--</dependency>-->
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis-spring</artifactId>
+      <version>1.2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mybatis</groupId>
+      <artifactId>mybatis</artifactId>
+      <version>3.3.0</version>
+    </dependency>
 
+
+
+
+
+    <!--配置mybatis需要的依赖包-->
+    <dependency>
+      <groupId>asm</groupId>
+      <artifactId>asm</artifactId>
+      <version>3.3.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>cglib</groupId>
+      <artifactId>cglib</artifactId>
+      <version>2.2.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.javassist</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.17.1-GA</version>
+    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>mysql</groupId>-->
+      <!--<artifactId>mysql-connector-java</artifactId>-->
+      <!--<version>5.1.6</version>-->
+    <!--</dependency>-->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.5</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.esotericsoftware.reflectasm</groupId>
+      <artifactId>reflectasm</artifactId>
+      <version>1.09</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.apache.ibatis/ibatis-core -->
+    <dependency>
+      <groupId>org.apache.ibatis</groupId>
+      <artifactId>ibatis-core</artifactId>
+      <version>3.0</version>
+    </dependency>
   </dependencies>
-
   <build>
     <finalName>core</finalName>
   </build>

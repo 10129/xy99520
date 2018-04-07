@@ -8,5 +8,5 @@ import com.thoughtworks.xstream.mapper.Mapper;
  */
 public interface UserMapper extends Mapper {
 
-     public String selecttest();
+    String selecttest();
 }
