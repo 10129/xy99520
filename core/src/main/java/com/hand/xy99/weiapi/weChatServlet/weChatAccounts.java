@@ -2,7 +2,7 @@ package com.hand.xy99.weiapi.weChatServlet;
 /**
  *Created by xieshuai on 2018/1/15.
  */
-import com.hand.xy99.user.service.IUserService;
+import com.hand.xy99.user.service1.IUserService;
 import com.hand.xy99.weiapi.service.IWeixinService;
 import com.hand.xy99.weiapi.service.impl.WeixinServiceImpl;
 import org.slf4j.Logger;

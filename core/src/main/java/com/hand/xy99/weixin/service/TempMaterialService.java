@@ -65,7 +65,7 @@ public class TempMaterialService {
 	public void getTempMaterial(String accessToken,String mediaId,String savePath) throws UnsupportedEncodingException{
 
 		//String savePath=System.getProperty("user.dir").replaceAll("\\\\", "/")+"/WebContent/img/"+mediaId+".png"; 
-		//System.out.println("service savePath:"+savePath);
+		//System.out.println("service1 savePath:"+savePath);
 		
 		//1.拼接请求url
 		getTempMaterial_url=getTempMaterial_url.replace("ACCESS_TOKEN", accessToken)

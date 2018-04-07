@@ -1,6 +1,6 @@
-package com.hand.xy99.user.service.Impl;
+package com.hand.xy99.user.service1.Impl;
 
-import com.hand.xy99.user.service.IBaseDAO;
+import com.hand.xy99.user.service1.IBaseDAO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 

@@ -1,7 +1,7 @@
-package com.hand.xy99.user.service.Impl;
+package com.hand.xy99.user.service1.Impl;
 
 import com.hand.xy99.user.dto.User;
-import com.hand.xy99.user.service.IUserService;
+import com.hand.xy99.user.service1.IUserService;
 
 import java.util.List;
 
