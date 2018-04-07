@@ -1,6 +1,5 @@
 package com.hand.xy99.weixin.util;
 
-import com.hand.xy99.weiapi.weChatServlet.AccessTokenServlet;
 import com.hand.xy99.weixin.pojo.AccessTokenInfo;
 import com.hand.xy99.weixin.pojo.Token;
 import net.sf.json.JSONArray;
