@@ -1,7 +1,5 @@
 package com.hand.xy99.user.service.lmpl;
-
 import com.hand.xy99.user.controllers.LoginController;
-import com.hand.xy99.user.dao.UserDao;
 import com.hand.xy99.user.dto.LoginLog;
 import com.hand.xy99.user.dto.User;
 import com.hand.xy99.user.mapper.UserMapper;
