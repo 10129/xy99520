@@ -1,4 +1,4 @@
-package com.hand.xy99.user.service1;
+package com.hand.xy99.user.service;
 
 import org.springframework.jdbc.core.PreparedStatementCallback;
 

@@ -7,10 +7,9 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hand.xy99.user.dto.LoginCommand;
 import com.hand.xy99.user.dto.User;
-import com.hand.xy99.user.mapper.UserMapper;
-import com.hand.xy99.user.service.IUserService;
-import com.hand.xy99.user.service.UserService;
+import com.hand.xy99.user.service.ILoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
     @Autowired
-    private UserService userService;
-    @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
-    private IUserService userService1;
+    private ILoginService loginService;
 
     @RequestMapping(value = "/index.html")
     public String loginPage() {
@@ -36,17 +33,17 @@ public class LoginController {
     Logger logger = LoggerFactory.getLogger(LoginController.class);
     @RequestMapping(value = "/loginCheck.html")
     public ModelAndView loginCheck(HttpServletRequest request, LoginCommand loginCommand){
-        boolean isVaildUser = userService.hasMatchUser(loginCommand.getUsername(), loginCommand.getPassword());
+        boolean isVaildUser = loginService.hasMatchUser(loginCommand.getUsername(), loginCommand.getPassword());
         logger.debug( "xieshuai#####################################" );
-        String aa =userService1.selectUserById();
+        String aa =loginService.selectUserById();
         logger.debug( "xieshuai-------------------------+"+aa );
         if(!isVaildUser){
             return new ModelAndView("login", "error", "用户名或密码错误");
         }else{
-            User user = userService.findUserByUsername(loginCommand.getUsername());
+            User user = loginService.findUserByUsername(loginCommand.getUsername());
             user.setLastIp(request.getLocalAddr());
             user.setLastVisit(new Date());
-            userService.loginSuccess(user);
+            loginService.loginSuccess(user);
             request.getSession().setAttribute("user", user);
             logger.debug( "xieshuai11111111111111111111111111111" );
             return new ModelAndView("main");

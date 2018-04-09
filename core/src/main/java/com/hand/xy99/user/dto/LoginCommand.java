@@ -1,4 +1,4 @@
-package com.hand.xy99.user.controllers;
+package com.hand.xy99.user.dto;
 
 /**
  * Created by xieshuai on 2018/4/7.

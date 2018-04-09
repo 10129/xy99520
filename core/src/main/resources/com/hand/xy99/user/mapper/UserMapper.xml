@@ -4,8 +4,38 @@
 <resultMap id="BaseResultMap" type="com.hand.xy99.user.dto.User" >
     <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="CREDITS" property="credits" jdbcType="DECIMAL" />
+    <result column="LAST_IP" property="lastIp" jdbcType="VARCHAR" />
+    <result column="LAST_VISIT" property="lastVisit" jdbcType="TIMESTAMP" />
 </resultMap>
 <select id="selectUserById" resultType="java.lang.String">
  SELECT user_name FROM t_user WHERE USER_ID = 11
 </select>
+<select id="getMatchCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+    SELECT count(*) FROM t_user WHERE user_name =#{name,jdbcType=DECIMAL}
+     and password = #{password,jdbcType=DECIMAL}
+</select>
+<select id="findUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select user_id,user_name,credits from t_user where user_name = #{name,jdbcType=DECIMAL}
+</select>
+<update id="updateLoginInfo" parameterType="com.hand.xy99.user.dto.User">
+    update t_user set last_visit = #{lastVisit,jdbcType=DECIMAL},
+    last_ip = #{lastIp,jdbcType=DECIMAL},
+    credits = #{credits,jdbcType=DECIMAL}
+    where user_id = #{userId,jdbcType=DECIMAL}
+</update>
+
+    <resultMap id="LoginResultMap" type="com.hand.xy99.user.dto.LoginLog" >
+        <id column="LOGIN_LOG_ID" property="loginLogId" jdbcType="DECIMAL" />
+        <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
+        <result column="IP" property="ip" jdbcType="VARCHAR" />
+        <result column="LOGIN_DATE" property="loginDate" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <insert id="insertLoginLog" parameterType="com.hand.xy99.user.dto.LoginLog">
+        insert into t_login_log(user_id, ip,login_datatime) values(
+        #{userId,jdbcType=DECIMAL},
+        #{ip,jdbcType=VARCHAR},
+        #{loginDate,jdbcType=TIMESTAMP})
+    </insert>
 </mapper>

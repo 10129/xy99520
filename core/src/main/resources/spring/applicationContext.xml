@@ -13,8 +13,6 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:property-placeholder location="classpath:config.properties"/>
-    <!-- 扫描包，应用注解 -->
-    <context:component-scan base-package="**.*.dao" />
     <!--定义一个jdbc数据源，创建一个驱动管理数据源的bean -->
     <!--<bean id="dataSource"-->
           <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->

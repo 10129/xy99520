@@ -1,6 +1,6 @@
 package com.hand.xy99.weixin.weChatServlet;
 
-import com.hand.xy99.user.service1.IUserService;
+import com.hand.xy99.user.service.IUserService;
 import com.hand.xy99.weixin.service.IWeixinService;
 import com.hand.xy99.weixin.service.impl.WeixinServiceImpl;
 import org.slf4j.Logger;
