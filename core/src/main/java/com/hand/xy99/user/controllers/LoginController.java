@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 import com.hand.xy99.user.dto.User;
+import com.hand.xy99.user.mapper.UserMapper;
+import com.hand.xy99.user.service.IUserService;
 import com.hand.xy99.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,9 @@ public class LoginController {
     private UserService userService;
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private IUserService userService1;
+
     @RequestMapping(value = "/index.html")
     public String loginPage() {
         return "login";
@@ -32,7 +37,9 @@ public class LoginController {
     @RequestMapping(value = "/loginCheck.html")
     public ModelAndView loginCheck(HttpServletRequest request, LoginCommand loginCommand){
         boolean isVaildUser = userService.hasMatchUser(loginCommand.getUsername(), loginCommand.getPassword());
-        logger.debug( "xieshuai11111111111111111111111111111" );
+        logger.debug( "xieshuai#####################################" );
+        String aa =userService1.selectUserById();
+        logger.debug( "xieshuai-------------------------+"+aa );
         if(!isVaildUser){
             return new ModelAndView("login", "error", "用户名或密码错误");
         }else{

@@ -12,9 +12,7 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <import resource="classpath:ureport-console-context.xml" />
     <context:property-placeholder location="classpath:config.properties"/>
-
     <!-- 扫描包，应用注解 -->
     <context:component-scan base-package="**.*.dao" />
     <!--定义一个jdbc数据源，创建一个驱动管理数据源的bean -->
@@ -51,5 +49,15 @@
             <!--<tx:method name="*"></tx:method>-->
         <!--</tx:attributes>-->
     <!--</tx:advice>-->
-
+    <!-- 自动扫描了所有的XxxxMapper.xml对应的mapper接口文件，这样就不用一个一个手动配置Mpper的映射了，只要Mapper接口类和Mapper映射文件对应起来就可以了。 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath*:/**/*Mapper.xml"/>
+        <!--<property name="typeAliasesPackage" value="com.hand.xy99.user.dto" />-->
+    </bean>
+    <!-- mybatis.spring自动映射 -->
+    <bean id="mybatisMapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="*.**.mapper" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
 </beans>

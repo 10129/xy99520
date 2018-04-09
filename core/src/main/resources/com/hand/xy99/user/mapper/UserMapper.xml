@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hand.xy99.user.mapper.UserMapper">
+<resultMap id="BaseResultMap" type="com.hand.xy99.user.dto.User" >
+    <id column="USER_ID" property="userId" jdbcType="DECIMAL" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+</resultMap>
+<select id="selectUserById" resultType="java.lang.String">
+ SELECT user_name FROM t_user WHERE USER_ID = 11
+</select>
+</mapper>

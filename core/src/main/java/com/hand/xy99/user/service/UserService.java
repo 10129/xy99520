@@ -35,4 +35,5 @@ public class UserService {
         userdao.updateLoginInfo(user);
         loginLogDao.insertLoginLog(loginLog);
     }
+
 }

@@ -33,49 +33,5 @@
   <listener>
     <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
   </listener>
-  <!--<welcome-file-list>-->
-  <!--        <welcome-file>index.html</welcome-file>-->
-<!--</welcome-file-list>-->
-  <listener>
-    <listener-class>com.hand.xy99.weixin.weChatServlet.AccessTokenServlet</listener-class>
-  </listener>
-  <servlet>
-    <servlet-name>weChatServlet</servlet-name>
-    <servlet-class>com.hand.xy99.weixin.weChatServlet.weChatAccounts</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>weChatServlet</servlet-name>
-    <url-pattern>/weChatServlet</url-pattern> <!--url-pattern必须与servlet-name一致-->
-  </servlet-mapping>
 
-  <servlet>
-    <servlet-name>accessTokenServlet</servlet-name>
-    <servlet-class>com.hand.xy99.weixin.weChatServlet.AccessTokenServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>accessTokenServlet</servlet-name>
-    <url-pattern>/accessTokenServlet</url-pattern> <!--url-pattern必须与servlet-name一致-->
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>uploadMediaServlet</servlet-name>
-    <servlet-class>com.hand.xy99.weixin.weChatServlet.UploadMediaServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>uploadMediaServlet</servlet-name>
-    <url-pattern>/uploadMediaServlet</url-pattern> <!--url-pattern必须与servlet-name一致-->
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>oauthServlet</servlet-name>
-    <servlet-class>com.hand.xy99.weixin.weChatServlet.OAuthServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>oauthServlet</servlet-name>
-    <url-pattern>/oauthServlet</url-pattern>
-  </servlet-mapping>
-
-  <!--<welcome-file-list>-->
-    <!--<welcome-file>index.jsp</welcome-file>-->
-  <!--</welcome-file-list>-->
 </web-app>
