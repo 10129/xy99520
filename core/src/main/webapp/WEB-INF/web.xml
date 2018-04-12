@@ -9,6 +9,15 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath*:/spring/applicationContext*.xml</param-value>
   </context-param>
+  <context-param>
+    <param-name>spring.profiles.default</param-name>
+    <param-value>default</param-value>
+  </context-param>
+  <context-param>
+    <param-name>propertiesFile</param-name>
+    <param-value>classpath:/config.properties</param-value>
+  </context-param>
+
   <!-- springMVC主控制servlet -->
   <servlet>
     <servlet-name>xy99</servlet-name>

@@ -177,11 +177,74 @@
           <include>**/*.xml</include>
         </includes>
       </resource>
+      <resource>
+        <directory>src/main/resources/profiles/${profile.env}</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*.properties</include>
+          <include>**/*.xml</include>
+        </includes>
+      </resource>
     </resources>
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
       </testResource>
     </testResources>
+    <plugins>
+    <!-- 配置mvn install -P  profile所需插件 -->
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-war-plugin</artifactId>
+      <configuration>
+        <!--<warName>${profile.env}</warName>-->
+        <!-- 激活spring profile -->
+        <webResources>
+          <resource>
+            <filtering>true</filtering>
+            <directory>src/main/webapp</directory>
+            <includes>
+              <include>**/web.xml</include>
+            </includes>
+          </resource>
+        </webResources>
+        <warSourceDirectory>src/main/webapp</warSourceDirectory>
+        <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+      </configuration>
+    </plugin>
+    </plugins>
   </build>
+  <!--配置文件引入 profile.env-->
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <profile.env>dev</profile.env>
+      </properties>
+    </profile>
+    <profile>
+      <id>sit</id>
+      <activation />
+      <properties>
+        <profile.env>sit</profile.env>
+      </properties>
+    </profile>
+    <profile>
+      <id>uat</id>
+      <activation />
+      <properties>
+        <profile.env>uat</profile.env>
+      </properties>
+    </profile>
+    <profile>
+      <id>pro</id>
+      <activation />
+      <properties>
+        <profile.env>pro</profile.env>
+      </properties>
+    </profile>
+  </profiles>
 </project>
