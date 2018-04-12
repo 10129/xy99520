@@ -12,7 +12,9 @@
   <version>${project.build.version}</version>
   <name>core</name>
   <url>http://maven.apache.org</url>
-
+  <properties>
+    <skipLiquibaseRun>true</skipLiquibaseRun>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -161,6 +163,7 @@
       <artifactId>jstl</artifactId>
       <version>1.1.2</version>
     </dependency>
+
   </dependencies>
   <!-- 如果不添加此节点mybatis的mapper.xml文件都会被漏掉。 -->
   <build>
@@ -212,6 +215,95 @@
         <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
       </configuration>
     </plugin>
+      <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>3.4.2</version>
+        <configuration>
+          <skip>${skipLiquibaseRun}</skip>
+        </configuration>
+        <dependencies>
+          <!-- http://mvnrepository.com/artifact/com.oracle/ojdbc14 -->
+          <!-- Oracle JDBC 驱动 -->
+          <!--<dependency>-->
+            <!--<groupId>com.oracle</groupId>-->
+            <!--<artifactId>ojdbc7</artifactId>-->
+            <!--<version>12.1.0.1.0</version>-->
+          <!--</dependency>-->
+          <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.34</version>
+          </dependency>
+          <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-groovy-dsl</artifactId>
+            <version>1.2.1</version>
+          </dependency>
+          <dependency>
+            <groupId>com.hand</groupId>
+            <artifactId>core-db</artifactId>
+            <type>jar</type>
+            <version>${project.build.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-xml</artifactId>
+            <version>2.4.6</version>
+          </dependency>
+
+
+        </dependencies>
+        <executions>
+          <execution>
+            <id>clearCheckSums</id>
+            <phase>process-resources</phase>
+            <configuration>
+              <driver>${db.driver}</driver>
+              <url>${db.url}</url>
+              <username>${db.user}</username>
+              <password>${db.password}</password>
+              <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+            </configuration>
+            <goals>
+              <goal>clearCheckSums</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>update</id>
+            <phase>process-resources</phase>
+            <configuration>
+              <changeLogFile>com/hand/xy99/db/liquibase.groovy</changeLogFile>
+              <driver>${db.driver}</driver>
+              <url>${db.url}</url>
+              <username>${db.user}</username>
+              <password>${db.password}</password>
+              <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+            </configuration>
+            <goals>
+              <goal>update</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <!-- if including source jars, use the no-fork goals
+             otherwise both the Groovy sources and Java stub sources
+             will get included in your jar -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <!-- source plugin \> = 2.1 is required to use the no-fork goals -->
+        <version>2.4</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+              <goal>test-jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <!--配置文件引入 profile.env-->
