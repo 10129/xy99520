@@ -1,6 +1,7 @@
 package com.hand.xy99.weixin.util.common;
 
 import com.google.gson.Gson;
+import com.hand.xy99.constants.Constant;
 import com.hand.xy99.weixin.pojo.message.send.BaseMessage;
 import com.hand.xy99.weixin.util.common.CommonUtil;
 import com.hand.xy99.weixin.weChatServlet.AccessTokenServlet;
@@ -25,7 +26,7 @@ public class SendMessageUtil {
         String json =gson.toJson(message);      //使用gson.toJson(user)即可将user对象顺序转成json
         System.out.println("jsonTextMessage:"+json);
         //获取accessToken
-        String accessToken =AccessTokenServlet.getAccessToken(CommonUtil.APPID, CommonUtil.APP_SECRET).getAccessToken();
+        String accessToken =AccessTokenServlet.getAccessToken(Constant.APPID, Constant.APP_SECRET).getAccessToken();
         //获取请求路径
         String action = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token="+accessToken;
         System.out.println("json:"+json);

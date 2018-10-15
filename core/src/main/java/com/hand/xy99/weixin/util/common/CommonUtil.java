@@ -17,6 +17,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
+import com.hand.xy99.constants.Constant;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
@@ -34,17 +35,6 @@ import com.hand.xy99.weixin.pojo.Token;
  */
 public class CommonUtil {
     private static Logger log = LoggerFactory.getLogger(CommonUtil.class);
-
-    // 凭证获取（GET）
-    public final static String token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
-    public final static String APPID = "wxd135f4cb0d7346bf";
-    public final static String APP_SECRET = "7e55c0ed3b6e16d4ea36c7365f410d88";
-    // 获取access_token的接口地址（GET） 限200（次/天）
-    public final static String access_token_url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APP_SECRET";
-    // 创建菜单
-    public final static String create_menu_url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
-    // 存放：1.token，2：获取token的时间,3.过期时间
-    public final static Map<String,Object> accessTokenMap = new HashMap<String,Object>();
 
     /**
      * 发送https请求
@@ -116,7 +106,7 @@ public class CommonUtil {
      */
     public static Token getToken(String appid, String appsecret) {
         Token token = null;
-        String requestUrl = token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
+        String requestUrl = Constant.ACCESS_TOKEN_INTERFACE_URL.replace("APPID", appid).replace("ACCESS_TOKEN", appsecret);
         // 发起GET请求获取凭证
         JSONObject jsonObject = httpsRequest(requestUrl, "GET", null);
 

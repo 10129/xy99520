@@ -1,5 +1,6 @@
 package com.hand.xy99.weixin.weChatServlet;
 
+import com.hand.xy99.constants.Constant;
 import com.hand.xy99.weixin.pojo.AccessTokenInfo;
 import com.hand.xy99.weixin.pojo.message.menu.Menu;
 import com.hand.xy99.weixin.pojo.Token;
@@ -47,7 +48,7 @@ public class AccessTokenServlet extends HttpServlet {
                 while (true) {
                     try {
                         //获取accessToken
-                        AccessTokenInfo.accessToken = getAccessToken(CommonUtil.APPID, CommonUtil.APP_SECRET);
+                        AccessTokenInfo.accessToken = getAccessToken(Constant.APPID, Constant.APP_SECRET);
                         //获取成功
                         if (AccessTokenInfo.accessToken != null) {
                             //创建菜单
@@ -89,8 +90,8 @@ public class AccessTokenServlet extends HttpServlet {
         // 每次获取access_token时，先从accessTokenMap获取，如果过期了就重新从微信获取
         // 没有过期直接返回
         // 从微信获取的token的有效期为2个小时
-        if (!CommonUtil.accessTokenMap.isEmpty()) {
-            Date getTokenTime = (Date) CommonUtil.accessTokenMap.get("getTokenTime");
+        if (!Constant.ACCESS_TOKEN_MAP.isEmpty()) {
+            Date getTokenTime = (Date) Constant.ACCESS_TOKEN_MAP.get("getTokenTime");
             Calendar c = Calendar.getInstance();
             c.setTime(getTokenTime);
             c.add(Calendar.HOUR_OF_DAY, 2);
@@ -99,14 +100,14 @@ public class AccessTokenServlet extends HttpServlet {
             if (getTokenTime.after(new Date())) {
                 logger.info("缓存中发现token未过期，直接从缓存中获取access_token");
                 // token未过期，直接从缓存获取返回
-                String token = (String) CommonUtil.accessTokenMap.get("token");
-                Integer expire = (Integer) CommonUtil.accessTokenMap.get("expire");
+                String token = (String) Constant.ACCESS_TOKEN_MAP.get("token");
+                Integer expire = (Integer) Constant.ACCESS_TOKEN_MAP.get("expire");
                 at.setAccessToken(token);
                 at.setExpiresIn(expire);
                 return at;
             }
         }
-        String requestUrl = CommonUtil.access_token_url.replace("APPID", appid).replace("APP_SECRET", appSecret);
+        String requestUrl = Constant.ACCESS_TOKEN_INTERFACE_URL.replace("APPID", appid).replace("APP_SECRET", appSecret);
 
         JSONObject object = handleRequest(requestUrl, "GET", null);
         String access_token = object.getString("access_token");
@@ -121,9 +122,9 @@ public class AccessTokenServlet extends HttpServlet {
         // 每次获取access_token后，存入accessTokenMap
         // 下次获取时，如果没有过期直接从accessTokenMap取。
         AccessTokenInfo.accessToken=at;
-        CommonUtil.accessTokenMap.put("getTokenTime", new Date());
-        CommonUtil.accessTokenMap.put("token", access_token);
-        CommonUtil.accessTokenMap.put("expire", expires_in);
+        Constant.ACCESS_TOKEN_MAP.put("getTokenTime", new Date());
+        Constant.ACCESS_TOKEN_MAP.put("token", access_token);
+        Constant.ACCESS_TOKEN_MAP.put("expire", expires_in);
 
         return at;
     }
@@ -196,7 +197,7 @@ public class AccessTokenServlet extends HttpServlet {
      * @date Nov 6, 2014 9:56:36 AM
      */
     public static boolean createMenu(Menu menu, String accessToken) {
-        String requestUrl = CommonUtil.create_menu_url.replace("ACCESS_TOKEN", accessToken);
+        String requestUrl = Constant.CREATE_MENU_INTERFACE_URL.replace("ACCESS_TOKEN", accessToken);
         String menuJsonString = JSONObject.fromObject(menu).toString();
         JSONObject jsonObject = handleRequest(requestUrl, "POST", menuJsonString);
         String errorCode = jsonObject.getString("errcode");
@@ -219,8 +220,7 @@ public class AccessTokenServlet extends HttpServlet {
     public static WeixinUserInfo getUserInfo(String accessToken, String openId) {
         WeixinUserInfo weixinUserInfo = null;
         // 拼接请求地址
-        String requestUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID";
-        requestUrl = requestUrl.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
+        String requestUrl = Constant.USER_INTERFACE_URL.replace("ACCESS_TOKEN", accessToken).replace("OPENID", openId);
         // 获取用户信息
         JSONObject jsonObject = CommonUtil.httpsRequest(requestUrl, "GET", null);
 

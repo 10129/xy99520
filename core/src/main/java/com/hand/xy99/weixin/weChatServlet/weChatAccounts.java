@@ -1,5 +1,6 @@
 package com.hand.xy99.weixin.weChatServlet;
 
+import com.hand.xy99.constants.Constant;
 import com.hand.xy99.user.service.IUserService;
 import com.hand.xy99.weixin.service.IWeixinService;
 import com.hand.xy99.weixin.service.impl.WeixinServiceImpl;
@@ -23,7 +24,6 @@ import java.util.Arrays;
  *Created by xieshuai on 2018/1/15.
  */
 
-
 @Service
 public class weChatAccounts extends HttpServlet {
     static Logger logger = LoggerFactory.getLogger(weChatAccounts.class);
@@ -31,10 +31,8 @@ public class weChatAccounts extends HttpServlet {
     private IUserService userService;
     @Autowired
     private IWeixinService weixinService;
-    /*
-    * 自定义token, 用作生成签名,从而验证安全性
-    * */
-    private final String TOKEN = "cherry";
+
+
 @Override
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     request.setCharacterEncoding("UTF-8");
@@ -61,7 +59,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
  * 将token、timestamp、nonce三个参数进行字典序排序
  * 并拼接为一个字符串
  */
-        String sortStr = sort(TOKEN,timestamp,nonce);
+        String sortStr = sort(Constant.TOKEN,timestamp,nonce);
 /**
  * 字符串进行shal加密
  */
