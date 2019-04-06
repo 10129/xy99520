@@ -29,10 +29,10 @@
     <load-on-startup>2</load-on-startup>
   </servlet>
   <!-- springMVC处理的url -->
-  <servlet-mapping>
-    <servlet-name>xy99</servlet-name>
-    <url-pattern>*.html</url-pattern>
-  </servlet-mapping>
+  <!--<servlet-mapping>-->
+    <!--<servlet-name>xy99</servlet-name>-->
+    <!--<url-pattern>*.html</url-pattern>-->
+  <!--</servlet-mapping>-->
 
   <!-- 监听servletContext，启动contextConfigLocation中的spring配置信息 -->
   <listener>
@@ -84,7 +84,7 @@
     <url-pattern>/oauthServlet</url-pattern>
   </servlet-mapping>
 
-  <!--<welcome-file-list>-->
-  <!--<welcome-file>index.jsp</welcome-file>-->
-  <!--</welcome-file-list>-->
+  <welcome-file-list>
+  <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
 </web-app>

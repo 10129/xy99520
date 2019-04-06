@@ -1,6 +1,7 @@
 package com.hand.xy99.util;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public final class ObjectUtil {

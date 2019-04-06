@@ -123,6 +123,42 @@
           <artifactId>mail</artifactId>
           <version>1.4.1</version>
       </dependency>
+      <dependency>
+          <groupId>pentaho-kettle</groupId>
+          <artifactId>kettle-core</artifactId>
+          <version>8.2.0.0-342</version>
+      </dependency>
+      <dependency>
+          <groupId>pentaho-kettle</groupId>
+          <artifactId>kettle-engine</artifactId>
+          <version>8.2.0.0-342</version>
+      </dependency>
+      <dependency>
+          <groupId>pentaho-kettle</groupId>
+          <artifactId>vfs2</artifactId>
+          <version>2-2.2</version>
+      </dependency>
+      <dependency>
+          <groupId>pentaho-kettle</groupId>
+          <artifactId>metastore</artifactId>
+          <version>8.2.0.0-342</version>
+      </dependency>
+      <dependency>
+          <groupId>pentaho-kettle</groupId>
+          <artifactId>scannotation</artifactId>
+          <version>1.0.2</version>
+      </dependency>
+      <dependency>
+          <groupId>simple-jndi</groupId>
+          <artifactId>simple-jndi</artifactId>
+          <version>1.0.0</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/com.bladejava/jmail -->
+      <dependency>
+          <groupId>com.bladejava</groupId>
+          <artifactId>jmail</artifactId>
+          <version>0.0.3</version>
+      </dependency>
 
   </dependencies>
   <!--支持JDK1.8以上-->

@@ -30,7 +30,6 @@ public class JxlsDataRenderUtil {
             String file= this.getClass().getResource("/").getFile();
             in=new BufferedInputStream(new FileInputStream(file+TemplateFileName));
             out = response.getOutputStream();
-
             Workbook workbook= null;
             workbook = transformer.transformXLS(in, dataMap);
             workbook.write(out);
