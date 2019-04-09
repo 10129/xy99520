@@ -5,6 +5,7 @@ import org.pentaho.di.core.exception.KettleException;
 import org.pentaho.di.core.gui.AreaOwner;
 import org.pentaho.di.core.gui.Point;
 import org.pentaho.di.core.gui.SwingGC;
+import org.pentaho.di.core.logging.LogLevel;
 import org.pentaho.di.core.util.EnvUtil;
 import org.pentaho.di.job.Job;
 import org.pentaho.di.job.JobMeta;
@@ -123,6 +124,7 @@ public class KettleUtil {
         KettleEnvironment.init();
         EnvUtil.environmentInit();
         TransMeta tm = new TransMeta(transFile);
+        tm.setLogLevel(LogLevel.DEBUG);
         Trans trans = new Trans(tm);
         for (Map.Entry<String, String> entry : para.entrySet()) {
             //设置命名参数

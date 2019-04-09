@@ -6,3 +6,4 @@ mvn  install:install-file  -Dfile=D:\kettle\lib\kettle-engine-8.2.0.0-342.jar  -
 mvn  install:install-file  -Dfile=D:\kettle\lib\metastore-8.2.0.0-342.jar  -DgroupId=pentaho-kettle  -DartifactId=metastore  -Dversion=8.2.0.0-342  -Dpackaging=jar
 mvn  install:install-file  -Dfile=D:\kettle\lib\scannotation-1.0.2.jar  -DgroupId=pentaho-kettle  -DartifactId=scannotation  -Dversion=1.0.2  -Dpackaging=jar
 mvn  install:install-file  -Dfile=D:\kettle\lib\simple-jndi-1.0.0.jar  -DgroupId=simple-jndi  -DartifactId=simple-jndi  -Dversion=1.0.0  -Dpackaging=jar
+mvn  install:install-file  -Dfile=C:\Users\xies\Desktop\xy99520手动jar包\aspose-words-15.8.0-jdk16.jar  -DgroupId=com.aspose  -DartifactId=aspose-words  -Dversion=15.8.0  -Dpackaging=jar

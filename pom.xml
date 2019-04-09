@@ -153,6 +153,12 @@
           <artifactId>simple-jndi</artifactId>
           <version>1.0.0</version>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/com.aspose.words/aspose-words-jdk16 -->
+      <!--<dependency>-->
+          <!--<groupId>com.aspose</groupId>-->
+          <!--<artifactId>aspose-words</artifactId>-->
+          <!--<version>15.8.0</version>-->
+      <!--</dependency>-->
       <!-- https://mvnrepository.com/artifact/com.bladejava/jmail -->
       <dependency>
           <groupId>com.bladejava</groupId>
