@@ -11,8 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author 作者 Jeffy
- * @email XXXXXX
+ * doc文档转pdf
+ *
+ * @author shuai.xie
  */
 public class DocToPdf {
 
@@ -68,7 +69,7 @@ public class DocToPdf {
                 FileOutputStream os = new FileOutputStream(file);
                 Document doc = new Document(docPath);
 
-                doc.save(os, 40);//全面支持DOC, DOCX, OOXML, RTF HTML, OpenDocument, PDF, EPUB, XPS, SWF 相互转换
+                doc.save(os, SaveFormat.PDF);//全面支持DOC, DOCX, OOXML, RTF HTML, OpenDocument, PDF, EPUB, XPS, SWF 相互转换
                 logger.info(pdfPath + "存储成功！");
             }
         } catch (Exception e) {
@@ -81,7 +82,7 @@ public class DocToPdf {
         DocToPdf word = new DocToPdf();
 //     word.toWord("c:\\test1.docx","c:\\signDoc.docx",map);
 
-        word.doc2PDF("D:\\MongoDB入门手册.doc", "D:\\DoctoPdf.pdf");
+        word.doc2PDF("D:\\MongoDB入门手册.docx", "D:\\DoctoPdf.pdf");
     }
 
 }

@@ -1,90 +1,89 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-         id="WebApp_ID" version="2.5">
-  <display-name>xy99520</display-name>
-  <description>xy99520</description>
-  <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>classpath*:/spring/applicationContext*.xml</param-value>
-  </context-param>
-  <context-param>
-    <param-name>spring.profiles.default</param-name>
-    <param-value>default</param-value>
-  </context-param>
-  <context-param>
-    <param-name>propertiesFile</param-name>
-    <param-value>classpath:/config.properties</param-value>
-  </context-param>
+<?xml   version="1.0"   encoding="GBK"?>
+<web-app   version="3.0"   xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>xy99520</display-name>
+    <description>xy99520</description>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:/spring/application*.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>spring.profiles.default</param-name>
+        <param-value>default</param-value>
+    </context-param>
+    <context-param>
+        <param-name>propertiesFile</param-name>
+        <param-value>classpath:/config.properties</param-value>
+    </context-param>
 
-  <!-- springMVC主控制servlet -->
-  <servlet>
-    <servlet-name>xy99</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <init-param>
-      <param-name>contextConfigLocation</param-name>
-      <param-value>classpath*:/spring/adam-servlet.xml</param-value>
-    </init-param>
-    <load-on-startup>2</load-on-startup>
-  </servlet>
-  <!-- springMVC处理的url -->
-  <!--<servlet-mapping>-->
-    <!--<servlet-name>xy99</servlet-name>-->
-    <!--<url-pattern>*.html</url-pattern>-->
-  <!--</servlet-mapping>-->
+    <!-- springMVC主控制servlet -->
+    <servlet>
+        <servlet-name>appServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:/spring/appServlet/servlet*.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>appServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
-  <!-- 监听servletContext，启动contextConfigLocation中的spring配置信息 -->
-  <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-  <!-- 防止spring内存溢出监听器 -->
-  <listener>
-    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-  </listener>
-  <!--<welcome-file-list>-->
-  <!--        <welcome-file>index.html</welcome-file>-->
-  <!--</welcome-file-list>-->
-  <listener>
-    <listener-class>com.hand.xy99.weixin.weChatServlet.AccessTokenServlet</listener-class>
-  </listener>
-  <servlet>
-    <servlet-name>weChatServlet</servlet-name>
-    <servlet-class>com.hand.xy99.weixin.weChatServlet.weChatAccounts</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>weChatServlet</servlet-name>
-    <url-pattern>/weChatServlet</url-pattern> <!--url-pattern必须与servlet-name一致-->
-  </servlet-mapping>
+    <!-- 监听servletContext，启动contextConfigLocation中的spring配置信息 -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!-- 防止spring内存溢出监听器 -->
+    <listener>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+    <!--<welcome-file-list>-->
+    <!--        <welcome-file>index.html</welcome-file>-->
+    <!--</welcome-file-list>-->
+    <listener>
+        <listener-class>com.hand.xy99.weixin.weChatServlet.AccessTokenServlet</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>weChatServlet</servlet-name>
+        <servlet-class>com.hand.xy99.weixin.weChatServlet.weChatAccounts</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>weChatServlet</servlet-name>
+        <url-pattern>/weChatServlet</url-pattern> <!--url-pattern必须与servlet-name一致-->
+    </servlet-mapping>
 
-  <servlet>
-    <servlet-name>accessTokenServlet</servlet-name>
-    <servlet-class>com.hand.xy99.weixin.weChatServlet.AccessTokenServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>accessTokenServlet</servlet-name>
-    <url-pattern>/accessTokenServlet</url-pattern> <!--url-pattern必须与servlet-name一致-->
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>accessTokenServlet</servlet-name>
+        <servlet-class>com.hand.xy99.weixin.weChatServlet.AccessTokenServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>accessTokenServlet</servlet-name>
+        <url-pattern>/accessTokenServlet</url-pattern> <!--url-pattern必须与servlet-name一致-->
+    </servlet-mapping>
 
-  <servlet>
-    <servlet-name>uploadMediaServlet</servlet-name>
-    <servlet-class>com.hand.xy99.weixin.weChatServlet.UploadMediaServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>uploadMediaServlet</servlet-name>
-    <url-pattern>/uploadMediaServlet</url-pattern> <!--url-pattern必须与servlet-name一致-->
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>uploadMediaServlet</servlet-name>
+        <servlet-class>com.hand.xy99.weixin.weChatServlet.UploadMediaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadMediaServlet</servlet-name>
+        <url-pattern>/uploadMediaServlet</url-pattern> <!--url-pattern必须与servlet-name一致-->
+    </servlet-mapping>
 
-  <servlet>
-    <servlet-name>oauthServlet</servlet-name>
-    <servlet-class>com.hand.xy99.weixin.weChatServlet.OAuthServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>oauthServlet</servlet-name>
-    <url-pattern>/oauthServlet</url-pattern>
-  </servlet-mapping>
+    <servlet>
+        <servlet-name>oauthServlet</servlet-name>
+        <servlet-class>com.hand.xy99.weixin.weChatServlet.OAuthServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>oauthServlet</servlet-name>
+        <url-pattern>/oauthServlet</url-pattern>
+    </servlet-mapping>
 
-  <welcome-file-list>
-  <welcome-file>index.html</welcome-file>
-  </welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 </web-app>

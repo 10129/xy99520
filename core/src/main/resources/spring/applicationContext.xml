@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
@@ -10,17 +11,12 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
+    <!-- 激活spring的注解. -->
+    <context:annotation-config />
     <context:property-placeholder location="classpath:config.properties"/>
     <!--定义一个jdbc数据源，创建一个驱动管理数据源的bean -->
-    <!--<bean id="dataSource"-->
-          <!--class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
-        <!--<property name="url" value="jdbc:mysql://39.108.98.36:3306/sampledb" />-->
-        <!--<property name="username" value="root" />-->
-        <!--<property name="password" value="root" />-->
-    <!--</bean>-->
     <!-- jndi dataSource-->
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="${db.jndiName}"/>
@@ -31,31 +27,47 @@
 
     <!-- 扫描包，应用注解 -->
     <context:component-scan base-package="**.*.service"/>
-    <!-- 配置事务管理器 -->
-    <bean id="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
-          p:dataSource-ref="dataSource" />
 
-    <!-- 通过AOP配置事务增强，让service包下所有Bean的所有方法拥有事务 -->
-    <!--<aop:config proxy-target-class="true">-->
-        <!--<aop:pointcut expression="execution(* com.hand.xy99.user.service..*(..))"-->
-                      <!--id="serviceMethod" />-->
-        <!--<aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod" />-->
-    <!--</aop:config>-->
-    <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
-        <!--<tx:attributes>-->
-            <!--<tx:method name="*"></tx:method>-->
-        <!--</tx:attributes>-->
-    <!--</tx:advice>-->
+    <!-- 开启这个配置，spring才能识别@Scheduled注解   -->
+    <task:annotation-driven scheduler="qbScheduler" mode="proxy"/>
+    <task:scheduler id="qbScheduler" pool-size="10"/>
+
+    <!-- 配置事务管理器，全注解声明式事务  -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
     <!-- 自动扫描了所有的XxxxMapper.xml对应的mapper接口文件，这样就不用一个一个手动配置Mpper的映射了，只要Mapper接口类和Mapper映射文件对应起来就可以了。 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="mapperLocations" value="classpath*:/**/*Mapper.xml"/>
-        <!--<property name="typeAliasesPackage" value="com.hand.xy99.user.dto" />-->
+        <!--<property name="typeAliasesPackage" value="com.jiao.xy99.user.dto" />-->
     </bean>
     <!-- mybatis.spring自动映射 -->
     <bean id="mybatisMapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="*.**.mapper" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
     </bean>
+
+    <!-- 启用 AspectJ 自动代理 -->
+    <aop:aspectj-autoproxy/>
+    <bean class="com.hand.xy99.util.operation.Operation"/>
+    <aop:aspectj-autoproxy/>
+    <bean class="com.hand.xy99.util.annotation.MyAnno"/>
+
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>text/plain;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
 </beans>
