@@ -9,11 +9,11 @@
 
         <property name="dataSource" ref="dataSource" />
         <property name="transactionManager" ref="transactionManager" />
+        <!--<property name="deploymentResources" value="classpath*:/activiti/*.zip"/>-->
         <property name="databaseSchemaUpdate" value="true" />
         <property name="jobExecutorActivate" value="false" />
         <property name="activityFontName" value="宋体"/>
         <property name="labelFontName" value="宋体"/>
-
         <!-- mail -->
         <property name="mailServerHost" value="localhost"/>
         <property name="mailServerUsername" value="kafeitu"/>
@@ -22,11 +22,11 @@
 
 
         <!-- 自动部署 -->
-        <!--<property name="deploymentResources">-->
-        <!--<list>-->
-        <!--<value>classpath*:/deployments/*.bpmn20.xml</value>-->
-        <!--</list>-->
-        <!--</property>-->
+        <property name="deploymentResources">
+            <list>
+                <value>classpath*:/deployments/*</value>
+            </list>
+        </property>
 
         <!-- 自定义表单字段类型 -->
         <property name="customFormTypes">
@@ -72,4 +72,6 @@
           class="org.activiti.rest.service.api.RestResponseFactory"/>
     <bean id="contentTypeResolver"
           class="org.activiti.rest.common.application.DefaultContentTypeResolver"/>
+    <!-- json处理 -->
+    <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"></bean>
 </beans>

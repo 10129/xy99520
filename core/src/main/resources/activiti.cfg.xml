@@ -9,5 +9,15 @@ http://www.springframework.org/schema/beans/spring-beans.xsd">
         <property name="jdbcDriver" value="com.mysql.jdbc.Driver"></property>
         <property name="jdbcUsername" value="root"></property>
         <property name="jdbcPassword" value="root"></property>
+
+        <!--<property name="databaseSchemaUpdate" value="true" />-->
+
+        <!--<property name="jobExecutorActivate" value="false" />-->
+        <!--<property name="asyncExecutorEnabled" value="true" />-->
+        <!--<property name="asyncExecutorActivate" value="false" />-->
+
+        <!--<property name="mailServerHost" value="mail.my-corp.com" />-->
+        <!--<property name="mailServerPort" value="5025" />-->
     </bean>
+
 </beans>
