@@ -30,5 +30,10 @@ public class Constant {
      */
     public final static String CREATE_MENU_INTERFACE_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 
+    public static final String PDF_WIN_FONTS = "C:/Windows/fonts/simsun.ttc";
+    public static final String PDF_LINUX_FONTS = "/usr/share/fonts/simsun.ttc";
+    public static final String PDF_ROUTE = "/home/centos/app/picture/pdf/";
+    public static final String PDF_SYS_NAME = "mango";
+    public static final String PDF_API_NAME = "resource_budget_summer";
 
 }
